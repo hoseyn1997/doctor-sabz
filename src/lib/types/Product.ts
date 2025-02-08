@@ -1,0 +1,41 @@
+export type Product = {
+  category: string
+  cost: string
+  disCount?: string
+  date: Date | null
+  description: string
+  hostUsername: string
+  hostDisplayname: string
+  id: string
+  isActive: boolean
+  status: string
+  title: string
+  photo: string
+  lessonIntruductionUrl: string
+  major: string
+  classification: string
+  section: string
+  commentsCount?: number
+  likesCount: number
+  attendeesCount: number
+  seasonsCount: number
+  episodesCount?: number
+  isSeen?: boolean,
+  seensCount?: number,
+  isHost?: boolean
+  host?: any
+  isLiking?: boolean
+  isSaved?: boolean
+  savesCount: number
+  isAttending: boolean
+  seasons: any
+  lessonTeacher?: any;
+  videoId?: string
+  playerUrl?: string
+  playReady?: boolean
+  duration?: number
+  videoStatus?: string
+  arvanChannelId?: string
+  lessonDurationCount?: string
+  lessonTotalDurationText?: string
+};
