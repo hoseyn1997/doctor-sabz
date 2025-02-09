@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## run the docker file: 
+docker run -p 3000:3000 -v ${PWD}/videos:/app/videos doctor-sabz-project
+
 ## Getting Started
 
 First, run the development server:

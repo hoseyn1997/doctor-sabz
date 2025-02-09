@@ -62,7 +62,7 @@ const CustomVideoPlayer: React.FC = () => {
         video.removeEventListener("canplay", handleCanPlay);
       };
     }
-  }, [setVideoElement, setLoading]);
+  }, [setVideoElement, setLoading, setCurrentTime, setDuration]);
 
   const toggleFullscreen = async () => {
     if (videoContainerRef.current) {

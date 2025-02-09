@@ -1,14 +1,5 @@
 import { Metadata } from "next";
-import { fetchProducts } from "@/lib/api";
-import Image from "next/image";
-import Catergories from "./customComponents/product/Catergories";
-import Courses from "./customComponents/product/Courses";
-import LearnMore from "./customComponents/common/extra/LearnMore";
-import SiteReport from "./customComponents/common/extra/SiteReport";
-import SiteMore from "./customComponents/common/extra/SiteMore";
-import TopCourseInfo from "./customComponents/common/extra/TopCourseInfo";
 import Player from "./customComponents/video/Player";
-import { Icons } from "./customComponents/common/Icons/Icons";
 import Card from "./customComponents/video/Card";
 
 export const metadata: Metadata = {
