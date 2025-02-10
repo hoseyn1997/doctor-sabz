@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar2 from "./customComponents/Navbar2";
+import Navbar2 from "./components/Navbar2";
 
 export const metadata: Metadata = {
   title: "دکتر سبز",

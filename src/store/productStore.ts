@@ -1,4 +1,4 @@
-import { Product } from "@/lib/types/Product";
+import { Product } from "@/types/Product";
 import { create } from "zustand";
 
 interface ProductStore {

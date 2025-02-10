@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { connectDatabase } from '@/lib/db';
 
 export async function GET(request: Request) {
+  await connectDatabase();
   const range = request.headers.get('range');
   if (!range) {
     return new NextResponse('Requires Range header', { status: 400 });

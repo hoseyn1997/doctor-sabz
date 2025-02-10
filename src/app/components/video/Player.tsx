@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Icons } from "../common/Icons/Icons";
 import useVideoStore from "@/store/videoStore";
+import { Icons } from "../Icons/Icons";
 
 const CustomVideoPlayer: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);

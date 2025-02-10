@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Product } from "./types/Product";
+import { Product } from "../types/Product";
 
 
 axios.defaults.baseURL = "";

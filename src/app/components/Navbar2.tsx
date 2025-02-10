@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Icons } from "./common/Icons/Icons";
 import Link from "next/link";
+import { Icons } from "./Icons/Icons";
 
 export default function Navbar2() {
   const [sideBar, setSideBar] = useState(false);

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Icons } from "../common/Icons/Icons";
+import { Icons } from "../Icons/Icons";
 
 export default function Card() {
   return (
