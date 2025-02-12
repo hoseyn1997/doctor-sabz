@@ -38,4 +38,7 @@ EXPOSE 3000
 # CMD ["npm", "start"]
 
 # Start the application and run migrations  
-CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
+# CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
+
+# Start the application, run migrations, and seed the database if empty
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && npm start"]

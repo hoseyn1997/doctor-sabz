@@ -1,15 +1,15 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const range = request.headers.get('range');
   if (!range) {
     return new NextResponse('Requires Range header', { status: 400 });
   }
 
   // Path to your video file
-  const videoPath = path.join(process.cwd(), 'videos', 'bigbuck.mp4');
+  const videoPath = path.join(process.cwd(), 'videos', 'BJMWBCIPL6.mp4');
   const videoSize = fs.statSync(videoPath).size;
 
   // Parse the range header
