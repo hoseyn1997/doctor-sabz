@@ -3,6 +3,7 @@
 #unneccessary files:
 /videos
 /public
+.env*
 
 # dependencies
 /node_modules

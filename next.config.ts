@@ -1,10 +1,23 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';  
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig: NextConfig = {  
+  /* config options here */  
   images: {  
-    domains: ['knowledgland.ir', 'res.cloudinary.com'],  // Add your domain here  
-  }, 
-};
+    remotePatterns: [  
+      {  
+        protocol: 'https', // or 'http'  
+        hostname: 'knowledgland.ir',  
+        port: '', // If the port is not the default (80 for http, 443 for https), specify it here.  
+        pathname: '/your/path/**', // Optional: specify a path if needed  
+      },  
+      {  
+        protocol: 'https', // or 'http'  
+        hostname: 'res.cloudinary.com',  
+        port: '',  
+        pathname: '/your/path/**', // Optional: specify a path if needed  
+      },  
+    ],  
+  },  
+};  
 
 export default nextConfig;

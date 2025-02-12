@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of your app's code  
 COPY . .  
 
+# Generate Prisma Client  
+RUN npx prisma generate  
+
 # Build the app  
 RUN npm run build  
 
@@ -26,9 +29,13 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules/  
 COPY --from=builder /app/.next ./.next/  
 COPY --from=builder /app/public ./public/  
+COPY --from=builder /app/prisma ./prisma 
 
 # Expose port 3000  
 EXPOSE 3000  
 
 # Start the application  
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
+
+# Start the application and run migrations  
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]

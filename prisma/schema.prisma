@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  Id                   String  @id @default(uuid())
+  UserName             String  @unique
+  Bio                  String?
+  Password             String
+  Email                String? @unique
+  EmailConfirmed       Boolean @default(false)
+  PhoneNumber          String  @unique
+  PhoneNumberConfirmed Boolean @default(false)
+  Role                 String  @default("User")
+
+  Collections    Collection[] // A user can attend to multiple collections
+  UserCollection UserCollection[] // A user can have many entries in the UserCollection
+  Photo          UserPhoto? // A user can have one photo 
+}
+
+model Video {
+  Id          String   @id @default(uuid())
+  Title       String
+  Description String?
+  Order       Int
+  FilePath    String
+  CreatedAt   DateTime @default(now())
+  UpdatedAt   DateTime @updatedAt
+
+  Collection   Collection @relation(fields: [CollectionId], references: [Id])
+  CollectionId String // A video can belong to one collection
+}
+
+model Collection {
+  Id          String   @id @default(uuid())
+  Title       String
+  Teacher     String
+  Cost        String
+  DisCount    String
+  Description String
+  IsActive    Boolean  @default(true)
+  CreatedAt   DateTime @default(now())
+  UpdatedAt   DateTime @updatedAt
+  Category    String?
+  Level       String?
+  Score       Int?
+
+  Video          Video[] // A collection can have many videos
+  User           User[] // A collection can have many users attending
+  UserCollection UserCollection[] // A collection can have many entries in the UserCollection
+  Photo          CollectionPhoto? // A collection can have one photo
+}
+
+model Photo {
+  Id              String            @id @default(uuid())
+  FilePath        String
+  UserPhoto       UserPhoto[]
+  CollectionPhoto CollectionPhoto[]
+}
+
+model UserPhoto {
+  Id String @id @default(uuid())
+
+  Photo   Photo  @relation(fields: [PhotoId], references: [Id]) // There is one photo  
+  PhotoId String // Foreign key to Photo  
+  User    User   @relation(fields: [UserId], references: [Id]) // For one user 
+  UserId  String @unique // Each user can have only one photo  
+
+  @@unique([PhotoId, UserId]) // Any User can have only one photo
+}
+
+model CollectionPhoto {
+  Id String @id @default(uuid())
+
+  Photo        Photo      @relation(fields: [PhotoId], references: [Id]) // There is one photo
+  PhotoId      String // Foreign key to Photo  
+  Collection   Collection @relation(fields: [CollectionId], references: [Id]) // For one Collection
+  CollectionId String     @unique // Each collection can have only one photo  
+
+  @@unique([PhotoId, CollectionId]) // Any collection can have only one photo
+}
+
+model UserCollection {
+  IsHost    Boolean
+  IsAllowed Boolean
+
+  User         User       @relation(fields: [UserId], references: [Id])
+  UserId       String // Many users can be in the UserCollection
+  Collection   Collection @relation(fields: [CollectionId], references: [Id])
+  CollectionId String //Many collections can be in the UserCollection
+
+  @@id([UserId, CollectionId])
+}

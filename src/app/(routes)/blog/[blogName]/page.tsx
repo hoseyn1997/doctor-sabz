@@ -1,3 +1,5 @@
+// import { createPost } from "@/actions/action";
+// import { prisma } from "@/lib/db";
 import { Metadata } from "next";
 import React from "react";
 
@@ -13,13 +15,27 @@ export const generateMetadata = async ({
   return {
     title: ` ${blogName} - My Next.js Blog`,
     description: `Read the latest blog post about ${blogName} .`,
-    // Add Open Graph metadata as needed
   };
 };
 
 export default async function page({ params, searchParams }: Props) {
   const { blogName } = await params;
   const queryParams = await searchParams;
+
+  // const post = await prisma.post.findFirst({ where: { slug: blogName } });
+
+  // const allPosts = await prisma.post.findMany({
+  //   where: { title: { endsWith: "Ever" } },
+  //   orderBy: { createdAt: "desc" },
+  //   select: {
+  //     id: true,
+  //     slug: true,
+  //     title: true,
+  //   },
+  //   take: 1,
+  //   skip: 2,
+  // });
+  // console.log(allPosts);
   return (
     <div className="min-h-screen bg-gray-50">
       <h1 className="text-gray-500 w-fit mx-auto my-2 text-3xl text-center p-5 bg-gray-100 rounded-lg">
@@ -30,6 +46,34 @@ export default async function page({ params, searchParams }: Props) {
           Query Parameters: {JSON.stringify(queryParams)}
         </p>
       )}
+      {/* <div>{post?.title}</div> */}
+      {/* <div>posts count is :{prisma.post.count()}</div> */}
+
+      <div className="my-20 w-[500px] mx-auto text-center">
+        <p className="text-xl font-bold">Lets Add A New Post To App</p>
+        <form
+          // action={createPost}
+          className="flex flex-col gap-y-2 mx-auto my-3"
+        >
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            className="ring-1 ring-gray-200 rounded-md p-2 px-3"
+          />
+          <textarea
+            name="content"
+            rows={5}
+            placeholder="Content"
+            className="ring-1 ring-gray-200 rounded-md p-2 px-3"
+          />
+          <input
+            type="submit"
+            value="Create Post"
+            className="text-white bg-green-500 rounded-full w-fit mx-auto px-5 py-1 pt-2 cursor-pointer"
+          />
+        </form>
+      </div>
     </div>
   );
 }
