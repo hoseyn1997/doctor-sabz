@@ -4,7 +4,7 @@ interface Props {
   className: string;
 }
 
-export default function PauseIcon({ className }: Props) {
+export default function Pause({ className }: Props) {
   return (
     <svg
       className={className}

@@ -2,13 +2,14 @@ import React from "react";
 
 interface Props {
   className: string;
+  fill?: string;
 }
 
-export default function productIcon({ className }: Props) {
+export default function Play({ className, fill }: Props) {
   return (
     <svg
       className={className}
-      viewBox="0 -0.5 25 25"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -22,17 +23,11 @@ export default function productIcon({ className }: Props) {
         <path
           fillRule="evenodd"
           clipRule="evenodd"
-          d="M5.50108 7.72905V12.871C5.45464 14.7169 6.91225 16.2515 8.75808 16.3H16.2431C18.0893 16.2521 19.5475 14.7173 19.5011 12.871V7.72905C19.5475 5.88317 18.0899 4.34858 16.2441 4.30005H8.75808C6.91225 4.34858 5.45464 5.88317 5.50108 7.72905Z"
-          stroke="#9ca3af"
-          strokeWidth="1.5"
+          d="M10.715 6.36694L16.4 10.6639C16.7719 10.9289 16.9927 11.3573 16.9927 11.8139C16.9927 12.2706 16.7719 12.699 16.4 12.9639L10.71 17.6639C10.2297 18.0453 9.5794 18.1339 9.01458 17.8948C8.44975 17.6558 8.06062 17.1273 8.00003 16.5169V7.51694C8.05845 6.90422 8.44802 6.37281 9.01478 6.13275C9.58154 5.89269 10.2343 5.9826 10.715 6.36694Z"
+          stroke={fill || "#fff"}
+          strokeWidth="1"
           strokeLinecap="round"
           strokeLinejoin="round"
-        />
-        <path
-          d="M7.5011 19.3H17.5011"
-          stroke="#9ca3af"
-          strokeWidth="1.5"
-          strokeLinecap="round"
         />
       </g>
     </svg>

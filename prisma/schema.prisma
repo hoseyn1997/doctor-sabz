@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"] // Add this line
 }
 
 datasource db {
@@ -16,17 +17,17 @@ datasource db {
 model User {
   Id                   String  @id @default(uuid())
   UserName             String  @unique
-  Bio                  String?
   Password             String
-  Email                String? @unique
   EmailConfirmed       Boolean @default(false)
   PhoneNumber          String  @unique
   PhoneNumberConfirmed Boolean @default(false)
   Role                 String  @default("User")
+  Email                String? @unique
+  Bio                  String?
 
-  Collections    Collection[] // A user can attend to multiple collections
-  UserCollection UserCollection[] // A user can have many entries in the UserCollection
-  Photo          UserPhoto? // A user can have one photo 
+  Collections     Collection[] // A user can attend to multiple collections
+  UserCollections UserCollection[] // A user can have many entries in the UserCollection
+  Photo           UserPhoto? // A user can have one photo 
 }
 
 model Video {
@@ -56,17 +57,17 @@ model Collection {
   Level       String?
   Score       Int?
 
-  Video          Video[] // A collection can have many videos
-  User           User[] // A collection can have many users attending
-  UserCollection UserCollection[] // A collection can have many entries in the UserCollection
-  Photo          CollectionPhoto? // A collection can have one photo
+  Videos          Video[] // A collection can have many videos
+  Users           User[] // A collection can have many users attending
+  UserCollections UserCollection[] // A collection can have many entries in the UserCollection
+  Photo           CollectionPhoto? // A collection can have one photo
 }
 
 model Photo {
-  Id              String            @id @default(uuid())
-  FilePath        String
-  UserPhoto       UserPhoto[]
-  CollectionPhoto CollectionPhoto[]
+  Id               String            @id @default(uuid())
+  FilePath         String
+  UserPhotos       UserPhoto[]
+  CollectionPhotos CollectionPhoto[]
 }
 
 model UserPhoto {

@@ -4,7 +4,7 @@ interface Props {
   fill?: string;
 }
 
-export default function TomanIcon({ className, onClick }: Props) {
+export default function Toman({ className, onClick }: Props) {
   return (
     <svg
       className={className}

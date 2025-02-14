@@ -1,5 +1,6 @@
 // import { createPost } from "@/actions/action";
 // import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { Metadata } from "next";
 import React from "react";
 
@@ -36,6 +37,8 @@ export default async function page({ params, searchParams }: Props) {
   //   skip: 2,
   // });
   // console.log(allPosts);
+  const users = await prisma.user.findMany();
+
   return (
     <div className="min-h-screen bg-gray-50">
       <h1 className="text-gray-500 w-fit mx-auto my-2 text-3xl text-center p-5 bg-gray-100 rounded-lg">
@@ -73,6 +76,11 @@ export default async function page({ params, searchParams }: Props) {
             className="text-white bg-green-500 rounded-full w-fit mx-auto px-5 py-1 pt-2 cursor-pointer"
           />
         </form>
+      </div>
+      <div className="flex gap-5 mx-auto">
+        {users.map((user) => (
+          <div key={user.Id}>{user.UserName}</div>
+        ))}
       </div>
     </div>
   );

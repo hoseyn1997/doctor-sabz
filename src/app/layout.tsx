@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar2 from "./components/Navbar2";
+import Navbar from "./components/navbar";
 
 export const metadata: Metadata = {
   title: "دکتر سبز",
@@ -14,8 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" className="example">
-      <body className="antialiased bg-gray-50 pt-16 example">
-        <Navbar2 />
+      <body className="antialiased pt-14 example">
+        <Navbar />
         {children}
       </body>
     </html>

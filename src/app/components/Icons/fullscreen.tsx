@@ -4,7 +4,7 @@ interface Props {
   className: string;
 }
 
-export default function FullScreenIcon({ className }: Props) {
+export default function FullScreen({ className }: Props) {
   return (
     <svg
       className={className}

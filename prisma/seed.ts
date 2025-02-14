@@ -60,7 +60,7 @@ async function main() {
                 }
               }
             },
-            Video: {
+            Videos: {
               create: [
                 {
                   Title: "کلیات دوره",
@@ -100,7 +100,7 @@ async function main() {
           }
         }
       },
-      UserCollection: {
+      UserCollections: {
         create: [{
           CollectionId: "150b4de8-de4b-47d6-a416-17af947bdc96",
           IsAllowed: true,

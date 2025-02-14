@@ -190,9 +190,9 @@ const CustomVideoPlayer: React.FC = () => {
           onClick={togglePlayPause}
         >
           {isPlaying ? (
-            <Icons.Pause className="w-12 h-12 text-white bg-black/25 p-1 rounded-full" />
+            <Icons.pause className="w-12 h-12 text-white bg-black/25 p-1 rounded-full" />
           ) : (
-            <Icons.Play className="w-12 h-12 text-white bg-black/25 p-1 rounded-full" />
+            <Icons.play className="w-12 h-12 text-white bg-black/25 p-1 rounded-full" />
           )}
         </div>
       )}
@@ -205,9 +205,9 @@ const CustomVideoPlayer: React.FC = () => {
           className="text-white hover:bg-white/15 p-1 rounded-full"
         >
           {isPlaying ? (
-            <Icons.Pause className="w-6" />
+            <Icons.pause className="w-6" />
           ) : (
-            <Icons.Play className="w-6" />
+            <Icons.play className="w-6" />
           )}
         </button>
         <button
@@ -215,9 +215,9 @@ const CustomVideoPlayer: React.FC = () => {
           className="text-white hover:bg-white/15 p-1 rounded-full transition-colors duration-200"
         >
           {isMuted ? (
-            <Icons.VolOff className="w-6" />
+            <Icons.voloff className="w-6" />
           ) : (
-            <Icons.VolOn className="w-6" />
+            <Icons.volon className="w-6" />
           )}
         </button>
         <button
@@ -246,9 +246,9 @@ const CustomVideoPlayer: React.FC = () => {
           className="text-white hover:bg-white/15 p-1 rounded-full"
         >
           {isFullscreen ? (
-            <Icons.FullScreen className="w-6" />
+            <Icons.fullscreen className="w-6" />
           ) : (
-            <Icons.FullScreen className="w-6" />
+            <Icons.fullscreen className="w-6" />
           )}
         </button>
       </div>

@@ -17,7 +17,7 @@ export default function Card() {
           قسمت ۷ فصل ۳ آپارات کست | گفت‌وگو با کوروش کسائیان | K2Delta38
         </p>
         <div className="flex justify-start items-center text-xs gap-2 my-1">
-          <Icons.Play className="w-5 bg-green-600 rounded-full" />
+          <Icons.play className="w-5 bg-green-600 rounded-full" />
           <span>دکترسبز</span>
         </div>
         <div className="flex text-gray-500 text-xs">
