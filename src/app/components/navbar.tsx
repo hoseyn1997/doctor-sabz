@@ -34,17 +34,18 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="nav-bar absolute top-0 right-0 left-0 max-w-screen-container mx-auto border-grid z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="h-14 max-w-[1536px] mx-auto flex justify-between items-center px-5 2xl:px-0">
-          <div className="inline-flex gap-2">
-            <button
-              className="rounded-full hover:bg-gray-100 w-8 h-8 transition-all 
+      <div className="nav-bar absolute top-0 right-0 left-0 mx-auto border-grid z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="h-14 max-w-[1536px] mx-auto flex justify-between items-center px-3 md:px-9">
+          <div className="inline-flex gap-1 xl:w-64">
+            <Link
+              href={"/auth/register"}
+              className="rounded-lg hover:bg-gray-100 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
               <Icons.user className="w-4" />
-            </button>
+            </Link>
             <button
-              className="rounded-full hover:bg-gray-100 w-8 h-8 transition-all 
+              className="rounded-lg hover:bg-gray-100 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
               <Icons.moon className="w-4" />
@@ -52,24 +53,32 @@ export default function Navbar() {
           </div>
           <div className="relative hidden sm:block w-[248px] md:w-[373px] lg:w-[528px]">
             <input
-              className="rtl w-full rounded-xl bg-gray-100/50 px-5 py-3 focus-visible:outline-none text-sm text-gray-500"
+              className="rtl w-full rounded-xl bg-gray-100/70 px-5 py-2.5 focus-visible:outline-none text-sm text-gray-500"
               placeholder="جستجوی ویدئو در سایت"
             />
             <button
-              className="absolute left-1.5 top-1.5 rounded-full hover:bg-gray-100 w-8 h-8 transition-all 
+              className="absolute left-1.5 top-1 rounded-full hover:bg-gray-100 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
               <Icons.search className="w-4 rounded-full" />
             </button>
           </div>
           <div className="flex gap-3 text-sm text-gray-500 justify-center items-center">
-            <span className="hidden md:block min-w-max">درباره ما</span>
-            <span className="hidden md:block min-w-max">تازه ها</span>
-            <span className="hidden md:block min-w-max">مجله دکتر سبز</span>
-            <span className="hidden md:block min-w-max">خانه</span>
+            <Link href={"/about"} className="hidden md:block min-w-max">
+              درباره ما
+            </Link>
+            <Link href={"/"} className="hidden md:block min-w-max">
+              تازه ها
+            </Link>
+            <Link href={""} className="hidden md:block min-w-max">
+              مجله دکتر سبز
+            </Link>
+            <Link href={"/"} className="hidden md:block min-w-max">
+              خانه
+            </Link>
             <button
               onClick={() => setSideBar(!sideBar)}
-              className="rounded-full hover:bg-gray-100 w-8 h-8 transition-all 
+              className="rounded-lg hover:bg-gray-100 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
               <Icons.grip className="w-4" />
@@ -96,7 +105,7 @@ export default function Navbar() {
       <div
         ref={shadowPage}
         onClick={() => setSideBar(!sideBar)}
-        className="absolute hidden top-14 right-0 w-full h-full bg-black z-10 transition-opacity"
+        className="absolute hidden md:hidden top-14 right-0 w-full h-full bg-black z-10 transition-opacity"
       ></div>
     </>
   );

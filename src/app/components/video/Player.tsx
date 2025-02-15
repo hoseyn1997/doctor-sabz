@@ -4,7 +4,11 @@ import React, { useEffect, useRef, useState } from "react";
 import useVideoStore from "@/store/videoStore";
 import { Icons } from "../Icons/Icons";
 
-const CustomVideoPlayer: React.FC = () => {
+interface Props {
+  inputVideoId: string;
+}
+
+const CustomVideoPlayer: React.FC<Props> = ({ inputVideoId }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const [showPlayPauseIcon, setShowPlayPauseIcon] = useState(false);
@@ -30,6 +34,9 @@ const CustomVideoPlayer: React.FC = () => {
     handleDoubleClick,
     loading,
     setLoading,
+    setIsPlaying,
+    setIsMuted,
+    setPlaybackSpeed,
   } = useVideoStore();
 
   useEffect(() => {
@@ -60,9 +67,22 @@ const CustomVideoPlayer: React.FC = () => {
 
         video.removeEventListener("waiting", handleWaiting);
         video.removeEventListener("canplay", handleCanPlay);
+
+        // restore the video state when leave the component.
+        setCurrentTime(0);
+        setIsPlaying(false);
+        setIsMuted(false);
+        setPlaybackSpeed(1);
       };
     }
-  }, [setVideoElement, setLoading, setCurrentTime, setDuration]);
+  }, [
+    setVideoElement,
+    setLoading,
+    setCurrentTime,
+    setDuration,
+    setIsPlaying,
+    setIsMuted,
+  ]);
 
   const toggleFullscreen = async () => {
     if (videoContainerRef.current) {
@@ -165,8 +185,9 @@ const CustomVideoPlayer: React.FC = () => {
     >
       <video
         ref={videoRef}
-        src="/api/video"
-        className="w-full h-full"
+        src={`/api/video/${inputVideoId}`}
+        className={`w-full h-full max-h-[202px] md:max-h-[521px]`}
+        style={isFullscreen ? { maxHeight: "100%" } : {}}
         onClick={handleVideoClick}
       >
         Your browser does not support the video tag.

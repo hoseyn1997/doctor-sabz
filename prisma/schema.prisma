@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x"] // Add this line
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -22,29 +15,18 @@ model User {
   PhoneNumber          String  @unique
   PhoneNumberConfirmed Boolean @default(false)
   Role                 String  @default("User")
-  Email                String? @unique
   Bio                  String?
+  Email                String? @unique
 
-  Collections     Collection[] // A user can attend to multiple collections
-  UserCollections UserCollection[] // A user can have many entries in the UserCollection
-  Photo           UserPhoto? // A user can have one photo 
-}
-
-model Video {
-  Id          String   @id @default(uuid())
-  Title       String
-  Description String?
-  Order       Int
-  FilePath    String
-  CreatedAt   DateTime @default(now())
-  UpdatedAt   DateTime @updatedAt
-
-  Collection   Collection @relation(fields: [CollectionId], references: [Id])
-  CollectionId String // A video can belong to one collection
+  // relations
+  Photo       UserPhoto?
+  Collections CollectionAttendee[]
 }
 
 model Collection {
   Id          String   @id @default(uuid())
+  IntId       Int      @unique @default(autoincrement())
+  ShortId     String   @unique @db.Char(7)
   Title       String
   Teacher     String
   Cost        String
@@ -57,49 +39,78 @@ model Collection {
   Level       String?
   Score       Int?
 
-  Videos          Video[] // A collection can have many videos
-  Users           User[] // A collection can have many users attending
-  UserCollections UserCollection[] // A collection can have many entries in the UserCollection
-  Photo           CollectionPhoto? // A collection can have one photo
-}
+  // relations
+  Videos    Video[]
+  Photo     CollectionPhoto?
+  Attendees CollectionAttendee[]
 
-model Photo {
-  Id               String            @id @default(uuid())
-  FilePath         String
-  UserPhotos       UserPhoto[]
-  CollectionPhotos CollectionPhoto[]
-}
-
-model UserPhoto {
-  Id String @id @default(uuid())
-
-  Photo   Photo  @relation(fields: [PhotoId], references: [Id]) // There is one photo  
-  PhotoId String // Foreign key to Photo  
-  User    User   @relation(fields: [UserId], references: [Id]) // For one user 
-  UserId  String @unique // Each user can have only one photo  
-
-  @@unique([PhotoId, UserId]) // Any User can have only one photo
+  @@index([Cost, DisCount])
+  @@index([Title, Description])
 }
 
 model CollectionPhoto {
-  Id String @id @default(uuid())
+  Id           String @id @default(uuid())
+  PhotoId      String
+  CollectionId String @unique
 
-  Photo        Photo      @relation(fields: [PhotoId], references: [Id]) // There is one photo
-  PhotoId      String // Foreign key to Photo  
-  Collection   Collection @relation(fields: [CollectionId], references: [Id]) // For one Collection
-  CollectionId String     @unique // Each collection can have only one photo  
+  // relations
+  Collection Collection @relation(fields: [CollectionId], references: [Id], onDelete: Cascade)
+  Photo      Photo      @relation(fields: [PhotoId], references: [Id], onDelete: Cascade)
 
-  @@unique([PhotoId, CollectionId]) // Any collection can have only one photo
+  @@unique([PhotoId, CollectionId])
 }
 
-model UserCollection {
-  IsHost    Boolean
-  IsAllowed Boolean
+model Photo {
+  Id       String @id @default(uuid())
+  FilePath String
 
-  User         User       @relation(fields: [UserId], references: [Id])
-  UserId       String // Many users can be in the UserCollection
-  Collection   Collection @relation(fields: [CollectionId], references: [Id])
-  CollectionId String //Many collections can be in the UserCollection
+  // relations
+  Collections CollectionPhoto[]
+  Users       UserPhoto[]
+}
 
-  @@id([UserId, CollectionId])
+model CollectionAttendee {
+  Id             String   @id @default(uuid())
+  IsHost         Boolean
+  IsAllowed      Boolean
+  UserId         String
+  CollectionId   String
+  AttendanceDate DateTime @default(now())
+
+  // relations
+  Collection Collection @relation(fields: [CollectionId], references: [Id], onDelete: Cascade)
+  User       User       @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+
+  @@unique([UserId, CollectionId])
+  @@index([AttendanceDate])
+}
+
+model UserPhoto {
+  Id      String @id @default(uuid())
+  PhotoId String
+  UserId  String @unique
+
+  // relations
+  Photo Photo @relation(fields: [PhotoId], references: [Id], onDelete: Cascade)
+  User  User  @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+
+  @@unique([PhotoId, UserId])
+}
+
+model Video {
+  Id           String   @id @default(uuid())
+  IntId        Int      @unique @default(autoincrement())
+  ShortId      String   @unique @db.Char(7)
+  Title        String
+  Description  String?
+  Order        Int
+  FilePath     String
+  CreatedAt    DateTime @default(now())
+  UpdatedAt    DateTime @updatedAt
+  CollectionId String
+
+  // relations
+  Collection Collection @relation(fields: [CollectionId], references: [Id], onDelete: Cascade)
+
+  @@index([CollectionId, Order])
 }

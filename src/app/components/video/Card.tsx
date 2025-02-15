@@ -1,26 +1,33 @@
 import React from "react";
 import Image from "next/image";
 import { Icons } from "../Icons/Icons";
+import Link from "next/link";
 
-export default function Card() {
+interface Props {
+  title: string;
+  teacher: string;
+  videoId: string;
+}
+
+export default function Card({ title, teacher, videoId }: Props) {
   return (
     <div className="flex gap-2" style={{ fontFamily: "DefaultFont" }}>
       <Image
         src={"/video-popup.webp"}
         alt=""
-        width={200}
-        height={200}
-        className="object-cover rounded-lg"
+        width={176}
+        height={96}
+        className="object-cover rounded-lg w-44 h-24"
       />
-      <div>
-        <p className="text-sm">
-          قسمت ۷ فصل ۳ آپارات کست | گفت‌وگو با کوروش کسائیان | K2Delta38
-        </p>
-        <div className="flex justify-start items-center text-xs gap-2 my-1">
-          <Icons.play className="w-5 bg-green-600 rounded-full" />
-          <span>دکترسبز</span>
+      <div className="">
+        <Link href={`/v/${videoId}`} className="text-sm">
+          {title}
+        </Link>
+        <div className="flex justify-start items-center text-xs gap-2 my-2">
+          <Icons.play className="w-5 bg-gray-100 rounded-full" fill="#6b7280" />
+          <span>{teacher}</span>
         </div>
-        <div className="flex text-gray-500 text-xs">
+        <div className="flex text-gray-500 text-xs gap-1">
           <span>تبلیغ</span>
           <span>4 روز پیش</span>
         </div>
