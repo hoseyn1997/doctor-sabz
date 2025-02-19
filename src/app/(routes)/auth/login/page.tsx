@@ -1,27 +1,29 @@
 "use client";
-import { login } from "@/actions/userService";
+import axios from "axios";
 import React from "react";
 
 export default function page() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-
+    const response = await axios.post("/api/login", {
+      username: formData.get("username"),
+      password: formData.get("password"),
+    });
     try {
-      const response = await login(formData);
-      const { token } = response;
-
-      console.log("Token received:", token);
-      localStorage.setItem("Token", token);
+      return response.status;
     } catch (error: any) {
-      console.error("Login error:", error); // Handle errors
-      alert(error.message); // Display error message
+      console.error("Login error:", error);
+      alert(error.message);
     }
   };
+
   return (
     <div className="px-5">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e) =>
+          handleSubmit(e).then((res) => console.log("res is", res))
+        }
         className="bg-white grid gap-3 w-full md:w-3/4 lg:w-1/4 mx-auto my-10"
       >
         <input

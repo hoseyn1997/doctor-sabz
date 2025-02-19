@@ -54,9 +54,26 @@ export async function login(formData: FormData) {
     throw new Error('Invalid username or password');
   }
 
-  const token = jwt.sign({ id: user.Id, username: user.UserName, Email: user.PhoneNumberConfirmed }, JWT_SECRET, {
+  const token = jwt.sign(
+    {
+      id: user.Id,
+      username: user.UserName,
+      Email: user.PhoneNumberConfirmed
+    },
+    JWT_SECRET, {
     expiresIn: '1h',
   });
 
-  return { token };  // Return token to the front-end  
+  // Create a cookie string  
+  // const cookie = `token=${token}; HttpOnly; Max-Age=3600; Path=/; SameSite=Lax;` + (process.env.NODE_ENV === 'production' ? '; Secure' : '');
+
+  // Create a new Response object and set the cookie header  
+  // Return a plain object instead of a class instance  
+  return {
+    redirect: {
+      destination: '/dashboard',
+      permanent: false,
+    },
+    token, // You can also return the token here if needed  
+  };
 }

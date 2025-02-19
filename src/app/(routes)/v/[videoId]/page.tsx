@@ -50,9 +50,10 @@ export default async function page({ params, searchParams }: Props) {
       <div className="grid grid-cols-3 lg:py-6 lg:gap-5 gap-2">
         <div className="col-span-3 row-start-3 lg:row-start-1 lg:col-span-1 rtl p-1">
           {collection && (
-            <div key={collection.Id} className="grid gap-1">
+            <div key={collection.Id} className="grid gap-3">
               {collection.Videos.map((video) => (
                 <Card
+                  key={video.Id}
                   title={video.Title}
                   teacher={collection.Teacher}
                   videoId={video.ShortId}
@@ -70,11 +71,16 @@ export default async function page({ params, searchParams }: Props) {
             >
               {custom_video.Title}
             </h1>
+            <div className="flex gap-2 items-center text-[10px] text-gray-500">
+              <p className="">1289 بازدید - </p>
+              <p>2 روز پیش</p>
+              <span className="text-sky-500 font-bold">بیشتر...</span>
+            </div>
 
             <div className="flex gap-2 my-2 items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-8 flex justify-center items-center bg-gray-100 rounded-full aspect-square">
-                  <Icons.user className="w-4" />
+                  <Icons.user className="w-4 stroke-current dark:stroke-gray-700" />
                 </div>
                 <p className="text-sm font-bold">
                   {custom_video.Collection.Teacher}
@@ -84,6 +90,7 @@ export default async function page({ params, searchParams }: Props) {
                 دنبال کردن
               </button>
             </div>
+            <p className="text-[10px] text-gray-500 mb-5">125 دنبال کننده</p>
             <p className="text-justify text-xs text-gray-500 Just3Rows">
               {custom_video.Description}
             </p>

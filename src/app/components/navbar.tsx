@@ -2,11 +2,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Icons } from "./Icons/Icons";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
   const [sideBar, setSideBar] = useState(false);
   const side_bar = useRef<HTMLDivElement>(null);
   const shadowPage = useRef<HTMLDivElement>(null);
+  const { theme, setTheme } = useTheme();
+  // const currentTheme = theme === "system" ? systemTheme : theme;
 
   useEffect(() => {
     if (sideBar) {
@@ -34,36 +37,40 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="nav-bar absolute top-0 right-0 left-0 mx-auto border-grid z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="h-14 max-w-[1536px] mx-auto flex justify-between items-center px-3 md:px-9">
+      <div className="nav-bar absolute top-0 right-0 left-0 mx-auto z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-white dark:bg-[#16171a]">
+        <div className="h-16 max-w-[1536px] mx-auto flex justify-between items-center px-3 md:px-9">
           <div className="inline-flex gap-1 xl:w-64">
             <Link
               href={"/auth/register"}
-              className="rounded-lg hover:bg-gray-100 w-8 h-8 transition-all 
+              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
-              <Icons.user className="w-4" />
+              <Icons.user className="w-5 stroke-current dark:stroke-gray-100" />
             </Link>
+
             <button
-              className="rounded-lg hover:bg-gray-100 w-8 h-8 transition-all 
+              onClick={() =>
+                theme == "dark" ? setTheme("light") : setTheme("dark")
+              }
+              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
-              <Icons.moon className="w-4" />
+              <Icons.moon className="w-5 stroke-current dark:stroke-gray-100" />
             </button>
           </div>
           <div className="relative hidden sm:block w-[248px] md:w-[373px] lg:w-[528px]">
             <input
-              className="rtl w-full rounded-xl bg-gray-100/70 px-5 py-2.5 focus-visible:outline-none text-sm text-gray-500"
+              className="rtl w-full rounded-xl bg-gray-100/70 dark:bg-[#292b30] dark:hover:shadow-[0px_0px_2px_0px_#fff] px-5 py-3 focus-visible:outline-none text-sm text-gray-500 transition-all"
               placeholder="جستجوی ویدئو در سایت"
             />
             <button
-              className="absolute left-1.5 top-1 rounded-full hover:bg-gray-100 w-8 h-8 transition-all 
+              className="absolute left-1 top-1.5 group rounded-full hover:bg-gray-100 dark:hover:bg-[#16171a] w-8 h-8 transition-all 
             flex justify-center items-center"
             >
-              <Icons.search className="w-4 rounded-full" />
+              <Icons.search className="w-4 rounded-full stroke-current dark:group-hover:stroke-gray-100" />
             </button>
           </div>
-          <div className="flex gap-3 text-sm text-gray-500 justify-center items-center">
+          <div className="flex gap-3 text-sm text-gray-500 dark:text-gray-100 justify-center items-center">
             <Link href={"/about"} className="hidden md:block min-w-max">
               درباره ما
             </Link>
@@ -78,10 +85,10 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => setSideBar(!sideBar)}
-              className="rounded-lg hover:bg-gray-100 w-8 h-8 transition-all 
+              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
-              <Icons.grip className="w-4" />
+              <Icons.grip className="w-5 stroke-current dark:stroke-gray-100" />
               {/* <Icons.menu className="w-4 block md:hidden" /> */}
             </button>
           </div>
@@ -89,16 +96,30 @@ export default function Navbar() {
       </div>
       <div
         ref={side_bar}
-        className="fixed top-14 h-full flex flex-col rtl w-60 p-5 gap-5 bg-white md:hidden z-20 -right-64 ring-1 ring-gray-100 transition-all duration-500"
+        className="fixed top-14 h-full flex flex-col rtl w-60 p-5 bg-white dark:bg-[#16171a] md:hidden z-20 -right-64 transition-all duration-500"
       >
         <button onClick={() => setSideBar(!sideBar)}></button>
-        <Link href={"/"}>خانه</Link>
-        <Link href={"/blog/blog_name"}>مجله دکتر سبز</Link>
+        <Link href={"/"} className="flex gap-3 items-center p-3">
+          <Icons.home className="stroke-current w-5" />
+          خانه
+        </Link>
+        <Link href={"/blog/blog_name"} className="flex gap-3 items-center p-3">
+          <Icons.news className="stroke-current w-5" />
+          مجله دکتر سبز
+        </Link>
         <Link
           href={"/product/product_name"}
-          className="flex justify-start items-center gap-1"
+          className="flex gap-3 items-center p-3"
         >
-          <span>دوره ها</span>
+          <Icons.bell className="stroke-current w-5" />
+          <span>تازه ها</span>
+        </Link>
+        <Link
+          href={"/product/product_name"}
+          className="flex gap-3 items-center p-3"
+        >
+          <Icons.shield_question className="stroke-current w-5" />
+          <span>درباره ما</span>
         </Link>
       </div>
 

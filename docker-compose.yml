@@ -9,7 +9,7 @@ services:
       - ./videos:/app/videos
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgres://admin_user:Gbc}W<iN*+L&%j6M@db:5432/mydatabase # DB connection string
+      - DATABASE_URL=postgres://admin_user:Gbc}W<iN*+L&%j6M@db:5432/mynewdatabase # DB connection string
     depends_on:
       db:
         condition: service_healthy
@@ -20,13 +20,13 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: mynewdatabase
       POSTGRES_USER: admin_user
       POSTGRES_PASSWORD: Gbc}W<iN*+L&%j6M
     ports:
       - "5432:5432" # Exposing PostgreSQL's default port
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin_user -d mydatabase"]
+      test: ["CMD-SHELL", "pg_isready -U admin_user -d mynewdatabase"]
       interval: 5s
       timeout: 5s
       retries: 5

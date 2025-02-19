@@ -2,7 +2,7 @@
 
 #unneccessary files:
 /videos
-/public
+# /public/fonts
 .env*
 
 # dependencies

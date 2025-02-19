@@ -11,6 +11,10 @@ import Search from "./search";
 import Sun from "./sun";
 import User from "./user";
 import Grip from "./grip";
+import Home from "./home";
+import News from "./news";
+import Bell from "./bell";
+import ShieldQuestion from "./shield-question";
 
 export const Icons = {
   pause: Pause,
@@ -26,4 +30,8 @@ export const Icons = {
   menu: Menu,
   search: Search,
   grip: Grip,
+  home: Home,
+  news: News,
+  bell: Bell,
+  shield_question: ShieldQuestion,
 };

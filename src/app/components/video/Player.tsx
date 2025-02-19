@@ -82,6 +82,7 @@ const CustomVideoPlayer: React.FC<Props> = ({ inputVideoId }: Props) => {
     setDuration,
     setIsPlaying,
     setIsMuted,
+    setPlaybackSpeed
   ]);
 
   const toggleFullscreen = async () => {

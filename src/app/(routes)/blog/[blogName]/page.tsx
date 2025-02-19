@@ -22,21 +22,6 @@ export const generateMetadata = async ({
 export default async function page({ params, searchParams }: Props) {
   const { blogName } = await params;
   const queryParams = await searchParams;
-
-  // const post = await prisma.post.findFirst({ where: { slug: blogName } });
-
-  // const allPosts = await prisma.post.findMany({
-  //   where: { title: { endsWith: "Ever" } },
-  //   orderBy: { createdAt: "desc" },
-  //   select: {
-  //     id: true,
-  //     slug: true,
-  //     title: true,
-  //   },
-  //   take: 1,
-  //   skip: 2,
-  // });
-  // console.log(allPosts);
   const users = await prisma.user.findMany();
 
   return (
@@ -52,7 +37,7 @@ export default async function page({ params, searchParams }: Props) {
       {/* <div>{post?.title}</div> */}
       {/* <div>posts count is :{prisma.post.count()}</div> */}
 
-      <div className="my-20 w-[500px] mx-auto text-center">
+      {/* <div className="my-20 w-[500px] mx-auto text-center">
         <p className="text-xl font-bold">Lets Add A New Post To App</p>
         <form
           // action={createPost}
@@ -76,7 +61,7 @@ export default async function page({ params, searchParams }: Props) {
             className="text-white bg-green-500 rounded-full w-fit mx-auto px-5 py-1 pt-2 cursor-pointer"
           />
         </form>
-      </div>
+      </div> */}
       <div className="flex gap-5 mx-auto">
         {users.map((user) => (
           <div key={user.Id}>{user.UserName}</div>
