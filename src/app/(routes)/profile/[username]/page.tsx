@@ -11,7 +11,7 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { username } = await params;
   return {
-    title: `Profile of ${username} - دکتر سبز`,
+    title: `Profile of ${username} - ویدیو سبز`,
     description: `This is the profile page for ${username}.`,
     // Add Open Graph metadata as needed
   };

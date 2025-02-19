@@ -15,6 +15,14 @@ import Home from "./home";
 import News from "./news";
 import Bell from "./bell";
 import ShieldQuestion from "./shield-question";
+import Check from "./check";
+import VerticalDots from "./vertical_dots";
+import Logout from "./logout";
+import Login from "./login";
+import Dashboard from "./dashboard";
+import Share from "./share";
+import Clock from "./clock";
+import Addtolist from "./addtolist";
 
 export const Icons = {
   pause: Pause,
@@ -34,4 +42,12 @@ export const Icons = {
   news: News,
   bell: Bell,
   shield_question: ShieldQuestion,
+  check: Check,
+  vertical_dots: VerticalDots,
+  logout: Logout,
+  login: Login,
+  dashboard: Dashboard,
+  share: Share,
+  clock: Clock,
+  addtolist: Addtolist,
 };

@@ -181,7 +181,7 @@ const CustomVideoPlayer: React.FC<Props> = ({ inputVideoId }: Props) => {
   return (
     <div
       ref={videoContainerRef}
-      className="relative overflow-hidden"
+      className="relative overflow-hidden lg:rounded-xl dark:shadow-[0px_0px_1px_#fff]"
       onDoubleClick={handleDoubleClick}
     >
       <video

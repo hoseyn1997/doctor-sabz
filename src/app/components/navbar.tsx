@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 
 export default function Navbar() {
   const [sideBar, setSideBar] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const side_bar = useRef<HTMLDivElement>(null);
   const shadowPage = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
@@ -37,16 +38,41 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="nav-bar absolute top-0 right-0 left-0 mx-auto z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-white dark:bg-[#16171a]">
+      <div
+        className="nav-bar fixed top-0 right-0 left-0 mx-auto z-50 w-full bg-background/95 backdrop-blur 
+        supports-[backdrop-filter]:bg-background/60 bg-white dark:bg-[#16171a]"
+      >
         <div className="h-16 max-w-[1536px] mx-auto flex justify-between items-center px-3 md:px-9">
           <div className="inline-flex gap-1 xl:w-64">
-            <Link
-              href={"/auth/register"}
-              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
-            flex justify-center items-center"
-            >
-              <Icons.user className="w-5 stroke-current dark:stroke-gray-100" />
-            </Link>
+            <div className="relative group">
+              <button
+                // href={"/auth/register"}
+                onClick={() => setShowProfile(!showProfile)}
+                onBlur={() => setShowProfile(false)}
+                className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
+              flex justify-center items-center"
+              >
+                <Icons.user className="w-5 stroke-current dark:stroke-gray-100" />
+              </button>
+              {showProfile && (
+                <ul
+                  className="absolute flex flex-col gap-2.5 items-end text-sm p-5 -bottom-28 rounded-xl h-28 left-4 min-w-max bg-white 
+                  dark:bg-[#16171a] shadow-[0px_0px_1px_gray] dark:shadow-[0px_0px_1px_#fff]"
+                >
+                  <Link href={"/"} className="flex items-center gap-2">
+                    پروفایل <Icons.dashboard className="w-4" />
+                  </Link>
+                  <Link href={"/"} className="flex items-center gap-2">
+                    ثبت نام
+                    <Icons.login className="w-4" />
+                  </Link>
+                  <Link href={"/"} className="flex items-center gap-2">
+                    خروج
+                    <Icons.logout className="w-4" />
+                  </Link>
+                </ul>
+              )}
+            </div>
 
             <button
               onClick={() =>
@@ -60,7 +86,8 @@ export default function Navbar() {
           </div>
           <div className="relative hidden sm:block w-[248px] md:w-[373px] lg:w-[528px]">
             <input
-              className="rtl w-full rounded-xl bg-gray-100/70 dark:bg-[#292b30] dark:hover:shadow-[0px_0px_2px_0px_#fff] px-5 py-3 focus-visible:outline-none text-sm text-gray-500 transition-all"
+              className="rtl w-full rounded-xl bg-gray-100/70 dark:bg-[#292b30] dark:hover:shadow-[0px_0px_2px_0px_#fff] px-5 py-3 
+              focus-visible:outline-none hover:shadow-[0px_0px_2px_0px_gray] text-sm text-gray-500 transition-all"
               placeholder="جستجوی ویدئو در سایت"
             />
             <button
@@ -78,7 +105,7 @@ export default function Navbar() {
               تازه ها
             </Link>
             <Link href={""} className="hidden md:block min-w-max">
-              مجله دکتر سبز
+              مجله ویدیو سبز
             </Link>
             <Link href={"/"} className="hidden md:block min-w-max">
               خانه
@@ -89,7 +116,6 @@ export default function Navbar() {
             flex justify-center items-center"
             >
               <Icons.grip className="w-5 stroke-current dark:stroke-gray-100" />
-              {/* <Icons.menu className="w-4 block md:hidden" /> */}
             </button>
           </div>
         </div>
@@ -105,7 +131,7 @@ export default function Navbar() {
         </Link>
         <Link href={"/blog/blog_name"} className="flex gap-3 items-center p-3">
           <Icons.news className="stroke-current w-5" />
-          مجله دکتر سبز
+          مجله ویدیو سبز
         </Link>
         <Link
           href={"/product/product_name"}

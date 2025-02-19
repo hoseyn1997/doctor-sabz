@@ -1,12 +1,12 @@
 export const dynamic = "force-dynamic";
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
-import Link from "next/link";
+import CollectionCard from "./components/video/CollectionCard";
 
 export const metadata: Metadata = {
-  title: "Home - دکتر سبز",
-  description: "Welcome to دکتر سبز - Your education path awaits you.",
-  keywords: "education, دکتر سبز, online learning",
+  title: "Home - ویدیو سبز",
+  description: "Welcome to ویدیو سبز - Your education path awaits you.",
+  keywords: "education, ویدیو سبز, online learning",
   // Add Open Graph metadata as needed
 };
 
@@ -20,33 +20,121 @@ export default async function Home() {
       Attendees: true,
     },
   });
-  // console.log(users);
-  // console.log(videos);
+  console.log(users);
+  console.log(collections);
 
   return (
-    <div className="grid text-center px-2">
-      <h1 className="my-5">This is Home Page</h1>
-      {collections.length > 0 &&
-        collections.map((collection) => (
-          <div
-            key={collection.ShortId}
-            className="mx-auto text-center w-full md:w-1/3 grid gap-2 rtl ring-1 ring-gray-200 rounded p-2 my-2"
-          >
-            <p className="text-lg font-bold">{collection.Title}</p>
-            <p className="truncate text-wrap text-sm font-bold">
-              {collection.Description}
-            </p>
-            <p className="text-gray-500 text-sm">{collection.Teacher}</p>
-            <Link
-              href={`/v/${collection.Videos[0].ShortId}`}
-              className="ring-1 ring-gray-300 rounded"
-            >
-              See
-            </Link>
-          </div>
-        ))}
-      {users &&
-        users.map((user) => <div key={user.UserName}>{user.UserName}</div>)}
+    <div className="rtl max-w-screen-container mx-auto px-3 lg:px-0 transition-all ">
+      <p className="text-lg my-3 font-bold">ویژه‌های ویدئو سبز</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 gap-x-1">
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection2.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title="اهنگ جدید رضا صادقی به نام دلبر"
+          days_ago="2"
+          photo="/assets/collection3.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection1.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection1.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection3.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection3.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection4.jpg"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection2.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection1.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection2.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection1.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+        <CollectionCard
+          title=" قسمت ۹ فصل ۳ آپارات کست | گفت وگو با مریم امیری | موسس آموزشگاه
+              عطر سیب"
+          days_ago="2"
+          photo="/assets/collection3.webp"
+          seen_count="29.6"
+          teacher="رضا صادقی | Reza Sadeghi"
+          teacher_photo="/assets/tc1.webp"
+        />
+      </div>
     </div>
   );
 }

@@ -4,8 +4,8 @@ import Navbar from "./components/navbar";
 import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
-  title: "دکتر سبز",
-  description: "مسیر تحصیلی خودت رو با دکتر سبز تضمین کن",
+  title: "ویدیو سبز",
+  description: "مسیر تحصیلی خودت رو با ویدیو سبز تضمین کن",
 };
 
 export default function RootLayout({
