@@ -82,7 +82,7 @@ const CustomVideoPlayer: React.FC<Props> = ({ inputVideoId }: Props) => {
     setDuration,
     setIsPlaying,
     setIsMuted,
-    setPlaybackSpeed
+    setPlaybackSpeed,
   ]);
 
   const toggleFullscreen = async () => {
@@ -190,6 +190,7 @@ const CustomVideoPlayer: React.FC<Props> = ({ inputVideoId }: Props) => {
         className={`w-full h-full max-h-[202px] md:max-h-[521px]`}
         style={isFullscreen ? { maxHeight: "100%" } : {}}
         onClick={handleVideoClick}
+        onEnded={() => console.log("ended video")}
       >
         Your browser does not support the video tag.
       </video>

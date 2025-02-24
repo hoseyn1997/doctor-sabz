@@ -23,6 +23,13 @@ import Dashboard from "./dashboard";
 import Share from "./share";
 import Clock from "./clock";
 import Addtolist from "./addtolist";
+import Phone from "./phone";
+import Lock from "./lock";
+import Eye from "./eye";
+import EyeClose from "./eye_close";
+import ArrowLeft from "./arrow_left";
+import Star from "./star";
+import Email from "./email";
 
 export const Icons = {
   pause: Pause,
@@ -50,4 +57,11 @@ export const Icons = {
   share: Share,
   clock: Clock,
   addtolist: Addtolist,
+  phone: Phone,
+  lock: Lock,
+  eye: Eye,
+  eye_close: EyeClose,
+  arrow_left: ArrowLeft,
+  star: Star,
+  email: Email,
 };

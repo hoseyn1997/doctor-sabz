@@ -88,6 +88,18 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+.example2::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+  overflow: hidden;
+  /* background-color: #10b981; */
+}
+.example2::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 120, 126, 0.671);
+  border-radius: 10px;
+  height: 5%;
+}
+
 .rtl {
   direction: rtl;
 }
@@ -157,7 +169,6 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
 }
 
-
 @keyframes fade {
   0% {
     opacity: 1;
@@ -170,7 +181,6 @@ input[type="range"]::-moz-range-thumb {
 .animate-fade {
   animation: fade 3s ease-out;
 }
-
 
 .Just1Rows {
   overflow: hidden;

@@ -101,6 +101,7 @@ model Video {
   Id           String   @id @default(uuid())
   IntId        Int      @unique @default(autoincrement())
   ShortId      String   @unique @db.Char(7)
+  IsFree       Boolean?  @default(false)
   Title        String
   Description  String?
   Order        Int

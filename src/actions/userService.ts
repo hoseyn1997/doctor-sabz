@@ -26,9 +26,9 @@ export async function register(formData: FormData) {
     },
   });
 
-  console.log('created-user: ', user)
+  // console.log('created-user: ', user)
   // Optionally redirect or return a success message  
-  redirect('/auth/login'); // Redirect to login page on success  
+  redirect(''); // Redirect to login page on success  
 };
 
 export async function login(formData: FormData) {

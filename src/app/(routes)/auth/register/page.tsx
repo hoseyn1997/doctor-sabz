@@ -1,40 +1,207 @@
-import { register } from "@/actions/userService";
-import React from "react";
+"use client";
+import { Icons } from "@/app/components/Icons/Icons";
+import Loader from "@/app/components/loader";
+import { ErrorMessage, Field, Form, Formik, FormikErrors } from "formik";
+import Link from "next/link";
+import * as Yup from "yup";
+import Image from "next/image";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
+import { useState } from "react";
 
-export default async function page() {
+type RegisterError = FormikErrors<{
+  username: string;
+  displayName: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  major: string;
+  section: string;
+  confirmpass: string;
+  error: null;
+}>;
+type StudentRegister = {
+  username: string;
+  displayName: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  major: string;
+  section: string;
+  confirmpass: string;
+  firstName: string;
+  lastName: string;
+  error: null;
+};
+
+export default function RegisterStudent() {
+  const [registering, setRegistering] = useState(false);
+
+  const initialValues = {
+    username: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    error: null,
+  };
+  const validationSchema = Yup.object({
+    username: Yup.string().required("این فیلد ضروری است"),
+    phoneNumber: Yup.string()
+      .matches(/^0\d{10}$/, "شماره تلفن باید با صفر شروع شود")
+      .required("این فیلد ضروری است"),
+    email: Yup.string(),
+    password: Yup.string().required("پسورد را وارد کنید"),
+  });
+
+  const handleSubmit = async (info: {
+    username: string;
+    password: string;
+    phoneNumber: string;
+    email?: string;
+  }) => {
+    setRegistering(true);
+    const response = await axios.post("/api/register", {
+      username: info.username,
+      password: info.password,
+      phoneNumber: info.phoneNumber,
+      email: info.email,
+    });
+    
+    try {
+      redirect("/");
+      return response.status;
+    } catch (error: any) {
+      return error;
+    }
+  };
+
   return (
-    <div className="px-5">
-      <form
-        action={register}
-        method="POST"
-        className="bg-white grid gap-3 w-full md:w-3/4 lg:w-1/4 mx-auto my-10"
+    <div className="mx-auto flex h-[90vh] w-[98%] flex-col items-center justify-start rounded-2xl py-20 sm:w-1/2 lg:w-1/3 text-sm">
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values, { setErrors }) => {
+          toast
+            .promise(
+              handleSubmit({
+                username: values.username,
+                password: values.password,
+                phoneNumber: values.phoneNumber,
+                email: values.phoneNumber,
+              }),
+              {
+                loading: "در حال ثبت نام",
+                success: <b>ثبت نام موفق</b>,
+                error: <b>عملیات ناموفق</b>,
+              }
+            )
+            .catch((error) => {
+              setErrors({ error: error.response.data.message });
+              setRegistering(false);
+              return error;
+            });
+        }}
+        validationSchema={validationSchema}
       >
-        <input
-          name="username"
-          placeholder="Username"
-          required
-          className="px-2 py-2 rounded-t-xl ring-1 ring-gray-200 bg-white focus-visible:outline-none"
-        />
-        <input
-          name="phoneNumber"
-          placeholder="Phone Number"
-          required
-          className="px-2 py-2 ring-1 ring-gray-200 bg-white focus-visible:outline-none"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-          className="px-2 py-2 rounded-b-xl ring-1 ring-gray-200 bg-white focus-visible:outline-none"
-        />
-        <button
-          type="submit"
-          className="bg-green-500 rounded-xl py-2 px-1 text-white font-bold hover:bg-green-400 transition-all"
+        {({ handleSubmit, isSubmitting, errors, isValid }) => (
+          <Form
+            className="error grid gap-2 text-center w-[330px] p-4 rounded-xl shadow-[0px_0px_2px_0px_#a1a3a8]"
+            onSubmit={handleSubmit}
+          >
+            <div className="rtl mb-4 flex items-center justify-center">
+              <Image
+                className="float-right w-10 scale-150 rounded-full"
+                src="/logo192.png"
+                alt="myIcon"
+                width={40}
+                height={40}
+                priority
+              />
+              <span className="font-danaBold mx-auto font-[1000]">
+                ثبت نام در ویدیو سبز
+              </span>
+              {/* <Link href="/auth/login/phone">
+                <Icons.arrow_left className="backward-btn h-7 w-7 cursor-pointer stroke-[#a1a3a8] text-slate-500" />
+              </Link> */}
+            </div>
+            <div className="relative grid">
+              <Field
+                name="username"
+                placeholder="نام کاربری"
+                className="ltr rounded-xl bg-gray-200 dark:bg-black px-2 py-3 text-center placeholder:text-center focus-visible:outline-none shadow-[0px_0px_2px_0px_#a1a3a8]"
+              />
+              <Icons.user className="absolute left-2 top-2.5 h-6 w-6 stroke-[#a1a3a8] stroke-[2px]" />
+            </div>
+            <div className="relative grid">
+              <Field
+                name="phoneNumber"
+                type="text"
+                placeholder="شماره تلفن"
+                inputMode="tel"
+                minLength={11}
+                maxLength={11}
+                className="ltr rounded-xl bg-gray-200 dark:bg-black px-2 py-3 text-center placeholder:text-center focus-visible:outline-none shadow-[0px_0px_2px_0px_#a1a3a8]"
+              />
+              <Icons.phone className="absolute left-2 top-2.5 h-6 w-6 stroke-[#a1a3a8] stroke-[2px]" />
+            </div>
+            <div className="relative grid">
+              <Field
+                name="email"
+                type="email"
+                placeholder="ایمیل (اختیاری)"
+                className="ltr rounded-xl bg-gray-200 dark:bg-black px-2 py-3 text-center placeholder:text-center focus-visible:outline-none shadow-[0px_0px_2px_0px_#a1a3a8]"
+              />
+              <Icons.email className="absolute left-2 top-2.5 h-6 w-6 stroke-[#a1a3a8] stroke-[2px]" />
+            </div>
+            <div className="relative grid">
+              <Field
+                name="password"
+                type="password"
+                placeholder="رمز"
+                className="ltr rounded-xl bg-gray-200 dark:bg-black px-2 py-3 text-center placeholder:text-center focus-visible:outline-none shadow-[0px_0px_2px_0px_#a1a3a8]"
+              />
+              <Icons.lock className="absolute left-0 top-1 h-10 w-10" />
+            </div>
+            {errors.error && (
+              <div className="relative flex justify-center w-full">
+                <ErrorMessage
+                  name="error"
+                  render={() => (
+                    <span className="ring-[0.5px] ring-red-300 to-rose-400 mx-3 text-xs text-red-400 font-bold w-full rounded py-2">
+                      {errors.error}
+                    </span>
+                  )}
+                />
+                <div className="w-1.5 h-1.5 aspect-square rounded-full ring-1 ring-red-300 absolute top-1 right-4"></div>
+              </div>
+            )}
+            <button
+              disabled={registering || !isValid}
+              type="submit"
+              className="flex w-full items-center justify-between rounded-3xl bg-gradient-to-r from-teal-300 to-green-300 p-1.5 font-bold 
+                text-white shadow disabled:opacity-50 "
+            >
+              <span className="mx-auto">ورود</span>
+              <div>
+                {registering ? (
+                  <Loader fill="#fff" className="w-7" />
+                ) : (
+                  <Icons.login className="h-7 w-7 rounded-full stroke-[2px] pr-1" />
+                )}
+              </div>
+            </button>
+          </Form>
+        )}
+      </Formik>
+      <p className="my-5">
+        حساب کاربری دارید؟
+        <Link
+          href={"/auth/login/phone"}
+          className="mx-1 text-sm font-bold text-green-500 hover:text-green-500 "
         >
-          Register
-        </button>
-      </form>
+          ورود
+        </Link>
+      </p>
     </div>
   );
 }

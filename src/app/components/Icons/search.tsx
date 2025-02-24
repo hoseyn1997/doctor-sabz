@@ -12,7 +12,7 @@ export default function Search({ className }: Props) {
       viewBox="0 0 24 24"
       fill="none"
       // stroke={fill || "#000"}
-      strokeWidth={2}
+      strokeWidth={1}
       strokeLinecap="round"
       strokeLinejoin="round"
     >

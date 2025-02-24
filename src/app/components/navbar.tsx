@@ -3,14 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Icons } from "./Icons/Icons";
 import { useTheme } from "next-themes";
+import NavUserSettings from "./navUserSettings";
 
 export default function Navbar() {
   const [sideBar, setSideBar] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
   const side_bar = useRef<HTMLDivElement>(null);
   const shadowPage = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
-  // const currentTheme = theme === "system" ? systemTheme : theme;
 
   useEffect(() => {
     if (sideBar) {
@@ -43,45 +42,16 @@ export default function Navbar() {
         supports-[backdrop-filter]:bg-background/60 bg-white dark:bg-[#16171a]"
       >
         <div className="h-16 max-w-[1536px] mx-auto flex justify-between items-center px-3 md:px-9">
-          <div className="inline-flex gap-1 xl:w-64">
-            <div className="relative group">
-              <button
-                // href={"/auth/register"}
-                onClick={() => setShowProfile(!showProfile)}
-                onBlur={() => setShowProfile(false)}
-                className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
-              flex justify-center items-center"
-              >
-                <Icons.user className="w-5 stroke-current dark:stroke-gray-100" />
-              </button>
-              {showProfile && (
-                <ul
-                  className="absolute flex flex-col gap-2.5 items-end text-sm p-5 -bottom-28 rounded-xl h-28 left-4 min-w-max bg-white 
-                  dark:bg-[#16171a] shadow-[0px_0px_1px_gray] dark:shadow-[0px_0px_1px_#fff]"
-                >
-                  <Link href={"/"} className="flex items-center gap-2">
-                    پروفایل <Icons.dashboard className="w-4" />
-                  </Link>
-                  <Link href={"/"} className="flex items-center gap-2">
-                    ثبت نام
-                    <Icons.login className="w-4" />
-                  </Link>
-                  <Link href={"/"} className="flex items-center gap-2">
-                    خروج
-                    <Icons.logout className="w-4" />
-                  </Link>
-                </ul>
-              )}
-            </div>
-
+          <div className="inline-flex gap-1 xl:w-64 ">
+            <NavUserSettings />
             <button
               onClick={() =>
                 theme == "dark" ? setTheme("light") : setTheme("dark")
               }
-              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
+              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
-              <Icons.moon className="w-5 stroke-current dark:stroke-gray-100" />
+              <Icons.moon className="w-4 stroke-current stroke-[2px] dark:stroke-gray-100" />
             </button>
           </div>
           <div className="relative hidden sm:block w-[248px] md:w-[373px] lg:w-[528px]">
@@ -112,10 +82,10 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => setSideBar(!sideBar)}
-              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400 w-8 h-8 transition-all 
+              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-8 h-8 transition-all 
             flex justify-center items-center"
             >
-              <Icons.grip className="w-5 stroke-current dark:stroke-gray-100" />
+              <Icons.grip className="w-4 stroke-current dark:stroke-gray-100" />
             </button>
           </div>
         </div>
