@@ -6,15 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "node server/server.js"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",
+    "@types/ws": "^8.5.14",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
+    "express": "^4.21.2",
     "formik": "^2.4.6",
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.6",
@@ -33,6 +36,7 @@
     "@types/node": "^20.17.19",
     "@types/react": "^19",
     "@types/react-dom": "^19.0.4",
+    "concurrently": "^9.1.2",
     "postcss": "^8",
     "prisma": "^6.3.1",
     "tailwindcss": "^3.4.1",

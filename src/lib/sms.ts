@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const APIKEY = process.env.SMS_IR_API_KEY;
+
 export async function send(code: number) {
   var data = JSON.stringify({
     mobile: "09145651334",
@@ -12,8 +14,7 @@ export async function send(code: number) {
     headers: {
       "Content-Type": "application/json",
       Accept: "text/plain",
-      "x-api-key":
-        "XnYkG4R9iex2k5VfQbYFGsdcAQLhFPJ1r2Vv7XM52nrFkUJhNqZ2ws468CVHsE56",
+      "x-api-key": APIKEY,
     },
     data: data,
   };

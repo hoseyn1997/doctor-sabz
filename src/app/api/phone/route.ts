@@ -5,10 +5,7 @@ interface PhoneRequestBody {
   phoneNumber: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
-
 export async function POST(req: Request) {
-  console.log(req);
   const { phoneNumber }: PhoneRequestBody = await req.json();
 
   if (!!!phoneNumber) {
@@ -24,5 +21,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "کاربر یافت نشد" }, { status: 401 });
 
   console.log("code has been sended to: " + phoneNumber);
-  return NextResponse.json({ message: "کد با موفقیت ارسال شد" });
+  return NextResponse.json({ message: "کاربر یافت شد" });
 }

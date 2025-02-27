@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { send } from "@/lib/sms";
 
 export default function page() {
   const [showPass, setShowPass] = useState(false);
@@ -33,12 +32,6 @@ export default function page() {
 
   return (
     <div className="mx-auto flex h-[90vh] w-[98%] flex-col items-center justify-start rounded-2xl py-20 sm:w-1/2 lg:w-1/3 text-sm">
-      <button
-        onClick={() => send(12345)}
-        className="bg-green-600 text-white py-2 px-3 font-bold rounded-lg"
-      >
-        send code
-      </button>
       <Formik
         initialValues={{ username: "", password: "", error: null }}
         onSubmit={(values, { setErrors }) =>
@@ -135,12 +128,12 @@ export default function page() {
                 <ErrorMessage
                   name="error"
                   render={() => (
-                    <span className="ring-[0.5px] ring-red-300 to-rose-400 mx-3 text-xs text-red-400 font-bold w-full rounded py-2">
+                    <span className="ring-[0.5px] ring-red-300 to-rose-400 text-center text-xs text-red-400 font-bold w-full rounded-lg py-2">
                       {errors.error}
                     </span>
                   )}
                 />
-                <div className="w-1.5 h-1.5 aspect-square rounded-full ring-1 ring-red-300 absolute top-1 right-4"></div>
+                <div className="w-1.5 h-1.5 aspect-square rounded-full ring-1 ring-red-300 absolute top-1 right-1"></div>
               </div>
             )}
             <button

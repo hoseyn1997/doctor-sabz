@@ -18,6 +18,11 @@ model User {
   Bio                  String?
   Email                String? @unique
 
+  PhoneConfirmationCode String?  @default("")
+  IsCountingDown        Boolean  @default(false)
+  CountingDownStart     DateTime @default(now())
+  CountingDownEnd       DateTime @default(now())
+
   // relations
   Photo       UserPhoto?
   Collections CollectionAttendee[]
@@ -101,7 +106,7 @@ model Video {
   Id           String   @id @default(uuid())
   IntId        Int      @unique @default(autoincrement())
   ShortId      String   @unique @db.Char(7)
-  IsFree       Boolean?  @default(false)
+  IsFree       Boolean? @default(false)
   Title        String
   Description  String?
   Order        Int
