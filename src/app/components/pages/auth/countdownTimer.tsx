@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Loader from "../../loader";
 import { Icons } from "../../Icons/Icons";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 declare interface WebSocketMessage {
   type:
@@ -33,6 +34,7 @@ const CountdownTimer = ({
   const [verifying, setverifying] = useState(false);
   const ws = useRef<WebSocket | null>(null);
   const code_input = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const sendConfirmationCode = async (code: string, phoneNumber: string) => {
     setverifying(true);
@@ -70,6 +72,7 @@ const CountdownTimer = ({
         if (!!message.token) {
           setToken(message.token);
           document.cookie = `token=${message.token}; path=/;`;
+          router.push("/");
           setPhoneNumber(null);
         } else {
           setVerifyError("کد اشتباه است یا مشکلی رخ داد");
@@ -105,7 +108,7 @@ const CountdownTimer = ({
   };
 
   return (
-    <div className="error grid gap-2 text-center w-[330px] p-4 rounded-xl shadow-[0px_0px_2px_0px_#a1a3a8]">
+    <div className="error grid gap-0 text-center w-[330px] p-4 rounded-xl shadow-[0px_0px_2px_0px_#a1a3a8]">
       <div className="rtl mb-4 flex items-center justify-center">
         <Image
           className="float-right w-10 scale-150 rounded-full"
@@ -116,9 +119,13 @@ const CountdownTimer = ({
           priority
         />
         <span className="font-danaBold mx-auto font-[1000] text-xl text-green-600">
+          <p className="text-center rtl text-xs text-green-600 font-bold">
+            کد با موفقیت ارسال شد.
+          </p>
           {phoneNumber}
         </span>
       </div>
+
       {!!!token ? (
         <>
           <div className="flex items-center gap-4">

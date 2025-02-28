@@ -1,10 +1,7 @@
-import {
-  setCountingDown,
-  verify_code,
-} from "./user_queries.js";
-import { send_sms } from "./send_sms.js";
+const { setCountingDown, verify_code } = require("./user_queries.js");
+const { send_sms } = require("./send_sms.js");
 
-export async function handle_send_code(phoneNumber) {
+async function handle_send_code(phoneNumber) {
   await send_sms(phoneNumber)
     .then((value) => {
       setCountingDown(phoneNumber, value.code, true);
@@ -14,7 +11,7 @@ export async function handle_send_code(phoneNumber) {
     });
 }
 
-export async function handle_verify_code(phoneNumber, code) {
+async function handle_verify_code(phoneNumber, code) {
   try {
     const result = await verify_code(phoneNumber, code);
     // console.log("the first stage result is: ", result);
@@ -24,11 +21,16 @@ export async function handle_verify_code(phoneNumber, code) {
   }
 }
 
-export async function verification_timed_out(phoneNumber) {
+async function verification_timed_out(phoneNumber) {
   try {
     const user = await setCountingDown(phoneNumber, "", false);
-
   } catch (error) {
     throw error;
   }
 }
+
+module.exports = {
+  handle_send_code,
+  handle_verify_code,
+  verification_timed_out,
+};

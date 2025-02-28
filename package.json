@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "node server/server.js"
+    "server": "node server/server.js",
+    "start:combined": "concurrently \"npm run start\" \"npm run server\""
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

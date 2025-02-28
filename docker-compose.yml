@@ -5,11 +5,13 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "8080:8080" # WebSocket server
     volumes:
       - ./videos:/app/videos
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgres://admin_user:Gbc}W<iN*+L&%j6M@db:5432/mynewdatabase # DB connection string
+      - SMS_IR_API_KEY=XnYkG4R9iex2k5VfQbYFGsdcAQLhFPJ1r2Vv7XM52nrFkUJhNqZ2ws468CVHsE56 # Add your SMS.ir API key here
     depends_on:
       db:
         condition: service_healthy

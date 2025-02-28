@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
+const { PrismaClient } = require("@prisma/client");
+const jwt = require("jsonwebtoken");
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
-export const getUserById = async (id) => {
+const getUserById = async (id) => {
   try {
     return await prisma.user.findUnique({
       where: {
@@ -16,7 +16,7 @@ export const getUserById = async (id) => {
   }
 };
 
-export const getAllUsers = async () => {
+const getAllUsers = async () => {
   try {
     return await prisma.user.findMany();
   } catch (error) {
@@ -24,7 +24,7 @@ export const getAllUsers = async () => {
   }
 };
 
-export const createUser = async (data) => {
+const createUser = async (data) => {
   try {
     return await prisma.user.create({
       data,
@@ -34,7 +34,7 @@ export const createUser = async (data) => {
   }
 };
 
-export async function setCountingDown(phoneNumber, code, counting) {
+async function setCountingDown(phoneNumber, code, counting) {
   const user = await prisma.user.update({
     where: { PhoneNumber: phoneNumber },
     data: {
@@ -45,7 +45,7 @@ export async function setCountingDown(phoneNumber, code, counting) {
   return user;
 }
 
-export async function generate_token(phoneNumber, user) {
+async function generate_token(phoneNumber, user) {
   if (!user) {
     const user = await prisma.user.findUnique({
       where: {
@@ -57,7 +57,7 @@ export async function generate_token(phoneNumber, user) {
   return token;
 }
 
-export async function verify_code(phoneNumber, code) {
+async function verify_code(phoneNumber, code) {
   // console.log("stage1-the userInput code is:", code);
 
   const user = await prisma.user.findUnique({
@@ -128,3 +128,12 @@ class Confirmation_Response {
     (this.data = data), (this.isconfirmed = isconfirmed), (this.error = error);
   }
 }
+
+module.exports = {
+  getUserById,
+  getAllUsers,
+  createUser,
+  setCountingDown,
+  generate_token,
+  verify_code,
+};

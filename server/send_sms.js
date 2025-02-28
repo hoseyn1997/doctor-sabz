@@ -1,8 +1,8 @@
-import axios from "axios";
+const axios = require("axios");
 
 const APIKEY = process.env.SMS_IR_API_KEY;
 
-export async function send_sms(phoneNumber) {
+async function send_sms(phoneNumber) {
   const generated_code = generate_code();
 
   var data = JSON.stringify({
@@ -31,7 +31,7 @@ export async function send_sms(phoneNumber) {
   return { response: resp, code: generated_code };
 }
 
-export async function confirm_code(code) {
+async function confirm_code(code) {
   try {
     return code === "12345";
   } catch (error) {
@@ -50,3 +50,8 @@ function generate_code(length = 5) {
 
   return code;
 }
+
+module.exports = {
+  confirm_code,
+  send_sms,
+};

@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/db";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
 interface RegisterRequestBody {
@@ -9,10 +8,9 @@ interface RegisterRequestBody {
   phoneNumber: string;
   email?: string;
 }
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export async function POST(req: Request) {
-  const { username, password, phoneNumber, email }: RegisterRequestBody =
+  const { username, password, phoneNumber }: RegisterRequestBody =
     await req.json();
 
   const user = await prisma.user.findUnique({ where: { UserName: username } });
@@ -40,7 +38,7 @@ export async function POST(req: Request) {
   // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
   // Save user to the database
-  const new_user = await prisma.user.create({
+  await prisma.user.create({
     data: {
       UserName: username,
       PhoneNumber: password,
@@ -49,20 +47,8 @@ export async function POST(req: Request) {
     },
   });
 
-  // Create a token
-  const token = jwt.sign({ userId: new_user.Id }, JWT_SECRET, {
-    expiresIn: "2h",
-  });
   const response = NextResponse.json({
-    message: "ثبت نام موفق. وارد سامانه شدید",
-  });
-  // Set the cookie
-  response.cookies.set("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Only in production
-    maxAge: 7200, // 2 hours
-    path: "/", // Cookie path
-    sameSite: "lax", // SameSite attribute
+    message: "ثبت نام موفق",
   });
   return response;
 }

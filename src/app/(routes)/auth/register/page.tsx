@@ -1,42 +1,18 @@
 "use client";
 import { Icons } from "@/app/components/Icons/Icons";
 import Loader from "@/app/components/loader";
-import { ErrorMessage, Field, Form, Formik, FormikErrors } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
 import Image from "next/image";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-type RegisterError = FormikErrors<{
-  username: string;
-  displayName: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  major: string;
-  section: string;
-  confirmpass: string;
-  error: null;
-}>;
-type StudentRegister = {
-  username: string;
-  displayName: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  major: string;
-  section: string;
-  confirmpass: string;
-  firstName: string;
-  lastName: string;
-  error: null;
-};
 
 export default function RegisterStudent() {
   const [registering, setRegistering] = useState(false);
+  const router = useRouter();
 
   const initialValues = {
     username: "",
@@ -67,13 +43,7 @@ export default function RegisterStudent() {
       phoneNumber: info.phoneNumber,
       email: info.email,
     });
-    
-    try {
-      redirect("/");
-      return response.status;
-    } catch (error: any) {
-      return error;
-    }
+    router.push("/auth/login/phone");
   };
 
   return (

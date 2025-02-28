@@ -30,9 +30,15 @@ COPY --from=builder /app/node_modules ./node_modules/
 COPY --from=builder /app/.next ./.next/  
 COPY --from=builder /app/public ./public/  
 COPY --from=builder /app/prisma ./prisma 
+COPY --from=builder /app/server ./server 
 
 # Expose port 3000  
 EXPOSE 3000  
+EXPOSE 8080
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV SMS_IR_API_KEY=XnYkG4R9iex2k5VfQbYFGsdcAQLhFPJ1r2Vv7XM52nrFkUJhNqZ2ws468CVHsE56
 
 # Start the application  
 # CMD ["npm", "start"]
@@ -41,4 +47,4 @@ EXPOSE 3000
 # CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
 
 # Start the application, run migrations, and seed the database if empty
-CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && npm start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && npm run start:combined"]
