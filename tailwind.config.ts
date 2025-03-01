@@ -15,6 +15,7 @@ export default {
       },
       screens: {
         container: "1400px",
+        minicontainer: "994px",
       }
     },
   },

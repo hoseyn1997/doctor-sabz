@@ -172,6 +172,14 @@ export default function RegisterStudent() {
           ورود
         </Link>
       </p>
+      <div className="rtl mx-auto mt-3 w-full max-w-[330px] text-center ">
+        با عضویت در سایت، تمامی قوانین و شرایط استفاده از خدمات
+        <Link className="text-green-500" href="/">
+          {" "}
+          ویدیو سبز{" "}
+        </Link>
+        را پذیرفته اید.
+      </div>
     </div>
   );
 }

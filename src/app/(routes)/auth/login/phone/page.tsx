@@ -92,6 +92,15 @@ export default function Page() {
                   ورود با شماره تلفن
                 </span>
               </div>
+              <div className="mb-4 text-xs">
+                حساب کاربری ندارید؟
+                <Link
+                  href={"/auth/register"}
+                  className="mx-2 font-bold text-green-500 hover:text-green-500 "
+                >
+                  ثبت نام کنید
+                </Link>
+              </div>
               <div className="relative grid">
                 <input
                   onChange={handleChange}
@@ -147,6 +156,14 @@ export default function Page() {
           setPhoneNumber={setPhoneNumber}
         />
       )}
+      <div className="rtl mx-auto mt-3 w-full max-w-[330px] text-center ">
+        با عضویت در سایت، تمامی قوانین و شرایط استفاده از خدمات
+        <Link className="text-green-500" href="/">
+          {" "}
+          ویدیو سبز{" "}
+        </Link>
+        را پذیرفته اید.
+      </div>
     </div>
   );
 }

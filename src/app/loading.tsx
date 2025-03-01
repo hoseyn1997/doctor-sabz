@@ -1,8 +1,8 @@
-// app/dashboard/loading.tsx
-export default function Loading() {
+import Loading from "./components/loading";
+export default function LoadingPage() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-600 dark:border-gray-50 border-t-transparent dark:border-t-black"></div>
+    <div className="flex h-screen items-center justify-center absolute top-0 w-full left-0 right-0">
+      <Loading className="w-12 stroke-gray-300" />
     </div>
   );
 }

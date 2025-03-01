@@ -77,7 +77,7 @@ export default function page() {
                 ورود با نام کاربری
               </span>
               <Link href="/auth/login/phone">
-                <Icons.arrow_left className="backward-btn h-7 w-7 cursor-pointer stroke-[#a1a3a8] text-slate-500" />
+                <Icons.arrow_left className="backward-btn h-7 w-7 cursor-pointer stroke-[#a1a3a8] dark:bg-gray-500/50 bg-gray-500/10 p-1 rounded-full" />
               </Link>
             </div>
             <div className="mb-4 text-xs">
@@ -102,7 +102,7 @@ export default function page() {
                 name="password"
                 type={showPass ? "text" : "password"}
                 placeholder="رمز"
-                className="ltr rounded-xl bg-gray-200 dark:bg-black px-2 py-3 text-center placeholder:text-center focus-visible:outline-none"
+                className="ltr rounded-xl bg-gray-200 dark:bg-black px-2 py-3 text-center placeholder:text-center focus-visible:outline-none shadow-[0px_0px_2px_0px_#a1a3a8]"
               />
               <Icons.lock className="absolute left-0 top-1 h-10 w-10" />
               {showPass ? (
@@ -151,9 +151,22 @@ export default function page() {
                 )}
               </div>
             </button>
+            <div className="flex justify-between items-center px-2 text-xs text-gray-500 cursor-pointer my-1">
+              <span>فراموشی رمز</span>
+              <span>ثبت ایمیل</span>
+            </div>
           </form>
         )}
       </Formik>
+
+      <div className="rtl mx-auto mt-3 w-full max-w-[330px] text-center ">
+        با عضویت در سایت، تمامی قوانین و شرایط استفاده از خدمات
+        <Link className="text-green-500" href="/">
+          {" "}
+          ویدیو سبز{" "}
+        </Link>
+        را پذیرفته اید.
+      </div>
     </div>
   );
 }

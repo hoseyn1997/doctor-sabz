@@ -30,6 +30,26 @@ import EyeClose from "./eye_close";
 import ArrowLeft from "./arrow_left";
 import Star from "./star";
 import Email from "./email";
+import Rocket from "./rocket";
+import NetxtJs from "./netxt_js";
+import NodeJs from "./node_js";
+import Typescript from "./typescript";
+import Javascript from "./javascript";
+import ReactJs from "./react_js";
+import Css from "./css";
+import Docker from "./docker";
+import Git from "./git";
+import Html from "./html";
+import Linkdin from "./linkdin";
+import Postgres from "./postgres";
+import Tailwind from "./tailwind";
+import Vscode from "./vscode";
+import Link from "./link";
+import Copy from "./copy";
+import Flash from "./flash";
+import Comment from "./comment";
+import Comments from "./comments";
+import NewUser from "./new_user";
 
 export const Icons = {
   pause: Pause,
@@ -40,8 +60,8 @@ export const Icons = {
   toman: Toman,
   moon: Moon,
   sun: Sun,
-  github: Github,
   user: User,
+  new_user: NewUser,
   menu: Menu,
   search: Search,
   grip: Grip,
@@ -64,4 +84,24 @@ export const Icons = {
   arrow_left: ArrowLeft,
   star: Star,
   email: Email,
+  rocket: Rocket,
+  github: Github,
+  next_js: NetxtJs,
+  node_js: NodeJs,
+  typescript: Typescript,
+  javascript: Javascript,
+  react_js: ReactJs,
+  css: Css,
+  docker: Docker,
+  git: Git,
+  html: Html,
+  linkdin: Linkdin,
+  postgres: Postgres,
+  tailwind: Tailwind,
+  vscode: Vscode,
+  link: Link,
+  copy: Copy,
+  flash: Flash,
+  comment: Comment,
+  comments: Comments,
 };

@@ -68,6 +68,13 @@ export default function Navbar() {
             </button>
           </div>
           <div className="flex gap-3 text-sm text-gray-500 dark:text-gray-100 justify-center items-center">
+            <Link
+              href={"/feedback"}
+              className="flex items-center gap-1 bg-red-50 dark:bg-black dark:text-gray-50 p-2 rounded-full dark:shadow-[0px_0px_0.5px_0.5px_gray]"
+            >
+              <span>نظرت رو بگو</span>
+              <Icons.rocket className="stroke-red-500 w-4 animate-pulse" />
+            </Link>
             <Link href={"/about"} className="hidden md:block min-w-max">
               درباره ما
             </Link>
