@@ -1,7 +1,6 @@
 "use client";
 import { Icons } from "@/app/components/Icons/Icons";
 import Loader from "@/app/components/loader";
-import axios from "axios";
 import { ErrorMessage, Field, Formik } from "formik";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -9,27 +8,28 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import useUserStore from "@/store/userStore";
 
 export default function page() {
   const [showPass, setShowPass] = useState(false);
-  const [loggingIn, setLoggingIn] = useState(false);
   const router = useRouter();
+  const { login, loggingIn } = useUserStore();
 
   const handleSubmit = async (info: { username: string; password: string }) => {
-    setLoggingIn(true);
-    const response = await axios.post("/api/login", {
-      username: info.username,
-      password: info.password,
-    });
+    const response = login(info)
+      .then((res) => {
+        router.push("/");
+      })
+      .catch((err) => {
+        throw err;
+      });
 
-    router.push("/");
     try {
-      return response.status;
+      return response;
     } catch (error: any) {
       return error;
     }
   };
-
   return (
     <div className="mx-auto flex h-[90vh] w-[98%] flex-col items-center justify-start rounded-2xl py-20 sm:w-1/2 lg:w-1/3 text-sm">
       <Formik
@@ -49,7 +49,6 @@ export default function page() {
             )
             .catch((error) => {
               setErrors({ error: error.response.data.message });
-              setLoggingIn(false);
               return error;
             })
         }

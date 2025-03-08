@@ -50,6 +50,22 @@ import Flash from "./flash";
 import Comment from "./comment";
 import Comments from "./comments";
 import NewUser from "./new_user";
+import Clapperboard from "./clapperboard";
+import WhatsApp from "./whats_app";
+import Telegram from "./telegram";
+import Eyta from "./eyta";
+import List from "./list";
+import Wallpaper from "./wallpaper";
+import Bookmark from "./bookmark";
+import Teacher from "./teacher";
+import Graduate from "./graduate";
+import ThumbsUp from "./thumbs_up";
+import ThumbsDown from "./thumbs_down";
+import Heart from "./heart";
+import HalfStart from "./half_start";
+import AddUser from "./add_user";
+import BadgeCheck from "./badge_check";
+import FastForward from "./fast_forward";
 
 export const Icons = {
   pause: Pause,
@@ -104,4 +120,20 @@ export const Icons = {
   flash: Flash,
   comment: Comment,
   comments: Comments,
+  clapperboard: Clapperboard,
+  whats_app: WhatsApp,
+  telegram: Telegram,
+  eyta: Eyta,
+  video_list: List,
+  wallpaper: Wallpaper,
+  bookmark: Bookmark,
+  teacher: Teacher,
+  graduate: Graduate,
+  thumbs_up: ThumbsUp,
+  thumbs_down: ThumbsDown,
+  heart: Heart,
+  half_start: HalfStart,
+  add_user: AddUser,
+  badge_check: BadgeCheck,
+  fast_forward: FastForward,
 };

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Icons } from "./Icons/Icons";
 import { useTheme } from "next-themes";
 import NavUserSettings from "./navUserSettings";
+import Image from "next/image";
+import NavbarSearch from "./navbar_search";
 
 export default function Navbar() {
   const [sideBar, setSideBar] = useState(false);
@@ -37,10 +39,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div
-        className="nav-bar fixed top-0 right-0 left-0 mx-auto z-50 w-full bg-background/95 backdrop-blur 
-        supports-[backdrop-filter]:bg-background/60 bg-white dark:bg-[#16171a]"
-      >
+      <div className="nav-bar fixed top-0 right-0 left-0 mx-auto z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-white dark:bg-dark shadow-[0px_1px_0px_0px_#8080802b] dark:shadow-[0px_1px_0px_0px_#8080805e]">
         <div className="h-16 max-w-[1536px] mx-auto flex justify-between items-center px-3 md:px-9">
           <div className="inline-flex gap-1 xl:w-64 ">
             <NavUserSettings />
@@ -48,29 +47,24 @@ export default function Navbar() {
               onClick={() =>
                 theme == "dark" ? setTheme("light") : setTheme("dark")
               }
-              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-8 h-8 transition-all 
-            flex justify-center items-center"
+              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-8 h-8 transition-all flex justify-center items-center"
             >
               <Icons.moon className="w-4 stroke-current stroke-[2px] dark:stroke-gray-100" />
             </button>
           </div>
-          <div className="relative hidden sm:block w-[248px] md:w-[373px] lg:w-[528px]">
+          <div className="relative hidden lg:block w-[248px] md:w-[300px] lg:w-[490px]">
             <input
-              className="rtl w-full rounded-xl bg-gray-100/70 dark:bg-[#292b30] dark:hover:shadow-[0px_0px_2px_0px_#fff] px-5 py-3 
-              focus-visible:outline-none hover:shadow-[0px_0px_2px_0px_gray] text-sm text-gray-500 transition-all"
+              className="rtl w-full rounded-xl bg-gray-100/70 dark:bg-[#292b30] dark:hover:shadow-[0px_0px_2px_0px_#fff] px-5 py-3 focus-visible:outline-none hover:shadow-[0px_0px_2px_0px_gray] text-sm text-gray-500 transition-all"
               placeholder="جستجوی ویدئو در سایت"
             />
-            <button
-              className="absolute left-1 top-1.5 group rounded-full hover:bg-gray-100 dark:hover:bg-[#16171a] w-8 h-8 transition-all 
-            flex justify-center items-center"
-            >
+            <button className="absolute left-1 top-1.5 group rounded-full hover:bg-gray-100 dark:hover:bg-dark w-8 h-8 transition-all flex justify-center items-center">
               <Icons.search className="w-4 rounded-full stroke-current dark:group-hover:stroke-gray-100" />
             </button>
           </div>
           <div className="flex gap-3 text-sm text-gray-500 dark:text-gray-100 justify-center items-center">
             <Link
               href={"/feedback"}
-              className="flex items-center gap-1 bg-red-50 dark:bg-black dark:text-gray-50 p-2 rounded-full dark:shadow-[0px_0px_0.5px_0.5px_gray]"
+              className="flex items-center gap-1 bg-red-50 dark:bg-black dark:text-gray-50 p-2 rounded-full dark:shadow-[0px_0px_0.5px_0.5px_gray] text-xs"
             >
               <span>نظرت رو بگو</span>
               <Icons.rocket className="stroke-red-500 w-4 animate-pulse" />
@@ -89,47 +83,65 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => setSideBar(!sideBar)}
-              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-8 h-8 transition-all 
-            flex justify-center items-center"
+              className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-8 h-8 transition-all flex justify-center items-center"
             >
-              <Icons.grip className="w-4 stroke-current dark:stroke-gray-100" />
+              <Image
+                className="float-right w-10 scale-150 rounded-full hidden md:block"
+                src="/logo192.png"
+                alt="myIcon"
+                width={40}
+                height={40}
+                priority
+              />
+              <Icons.grip className="w-4 stroke-current dark:stroke-gray-100 md:hidden" />
             </button>
           </div>
         </div>
       </div>
       <div
         ref={side_bar}
-        className="fixed top-14 h-full flex flex-col rtl w-60 p-5 bg-white dark:bg-[#16171a] md:hidden z-20 -right-64 transition-all duration-500"
+        className="fixed top-16 h-full flex flex-col rtl px-3 py-5 bg-white dark:bg-dark md:hidden z-30 -right-64 transition-all duration-500"
       >
         <button onClick={() => setSideBar(!sideBar)}></button>
-        <Link href={"/"} className="flex gap-3 items-center p-3">
-          <Icons.home className="stroke-current w-5" />
-          خانه
+        <Link
+          href={"/"}
+          onClick={() => setSideBar(false)}
+          className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-16 h-16 transition-all flex flex-col gap-2 justify-center items-center text-center"
+        >
+          <Icons.home className="w-7 stroke-gray-500 stroke-2" />
+          <span className="text-[10px] leading-3 text-gray-500">خانه</span>
         </Link>
-        <Link href={"/blog/blog_name"} className="flex gap-3 items-center p-3">
-          <Icons.news className="stroke-current w-5" />
-          مجله ویدیو سبز
+        <Link
+          href={"/blog/blog_name"}
+          onClick={() => setSideBar(false)}
+          className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-16 h-16 transition-all flex flex-col gap-2 justify-center items-center text-center"
+        >
+          <Icons.clapperboard className="w-7 stroke-gray-500 stroke-2" />
+          <span className="text-[10px] leading-3 text-gray-500">
+            مجله ویدیو سبز
+          </span>
         </Link>
         <Link
           href={"/product/product_name"}
-          className="flex gap-3 items-center p-3"
+          onClick={() => setSideBar(false)}
+          className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-16 h-16 transition-all flex flex-col gap-2 justify-center items-center text-center"
         >
-          <Icons.bell className="stroke-current w-5" />
-          <span>تازه ها</span>
+          <Icons.bell className="w-7 stroke-gray-500 stroke-2" />
+          <span className="text-[10px] leading-3 text-gray-500">تازه ها</span>
         </Link>
         <Link
           href={"/product/product_name"}
-          className="flex gap-3 items-center p-3"
+          onClick={() => setSideBar(false)}
+          className="rounded-lg hover:bg-gray-100 dark:hover:bg-gray-400/40 w-16 h-16 transition-all flex flex-col gap-2 justify-center items-center text-center"
         >
-          <Icons.shield_question className="stroke-current w-5" />
-          <span>درباره ما</span>
+          <Icons.shield_question className="w-7 stroke-gray-500 stroke-2" />
+          <span className="text-[10px] leading-3 text-gray-500">درباره ما</span>
         </Link>
       </div>
-
       <div
         ref={shadowPage}
         onClick={() => setSideBar(!sideBar)}
-        className="absolute hidden md:hidden top-14 right-0 w-full h-full bg-black z-10 transition-opacity"
+        className="fixed hidden md:hidden top-16 right-0 w-full h-full bg-black z-20 transition-opacity"
       ></div>
     </>
   );

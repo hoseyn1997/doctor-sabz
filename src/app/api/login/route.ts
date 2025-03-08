@@ -10,7 +10,7 @@ interface LoginRequestBody {
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export async function POST(req: Request) {
-  console.log(req)
+  console.log(req);
   const { username, password }: LoginRequestBody = await req.json();
 
   const user = await prisma.user.findUnique({ where: { UserName: username } });
@@ -25,8 +25,15 @@ export async function POST(req: Request) {
     );
 
   // Create a token
-  const token = jwt.sign({ userId: user.Id }, JWT_SECRET, { expiresIn: "2h" });
-  const response = NextResponse.json({ message: "ورود موفق" });
+  const token = jwt.sign(
+    { userId: user.Id, username: user.UserName },
+    JWT_SECRET,
+    { expiresIn: "2h" }
+  );
+  const response = NextResponse.json({
+    data: { userId: user.Id, username: user.UserName, loggedIn: true },
+    message: "ورود موفق",
+  });
   // Set the cookie
   response.cookies.set("token", token, {
     httpOnly: true,

@@ -57,17 +57,17 @@ const CreatorInfo = () => {
         </Link>
         <Link
           href={"https://knowledgland.ir"}
-          className="bg-gray-50 rounded-full p-2 hover:scale-110 transition-all"
+          className="relative rounded-full p-2 hover:scale-110 transition-all ring-1 ring-teal-500 scale-110"
           target="blank"
         >
-          {/* <Icons.github className="w-5" /> */}
           <Image
             src={"/assets/knowledgland.ir.webp"}
             alt="knowledgland.ir"
-            className="w-5"
+            className="w-5 scale-125"
             width={20}
             height={20}
           />
+          <span className="absolute -bottom-1.5 -left-0.5 text-[7px] bg-white dark:bg-gray-800 text-teal-500 rounded p-0.5">project</span>
         </Link>
       </div>
       <p className="text-justify text-gray-600 dark:text-gray-50 text-sm">

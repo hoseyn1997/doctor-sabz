@@ -1,5 +1,6 @@
 import { handlefeedback } from "@/actions/give_feedback";
 import { Icons } from "@/app/components/Icons/Icons";
+import Loading from "@/app/components/loading";
 import React from "react";
 
 const Feedback = () => {
@@ -26,7 +27,9 @@ const Feedback = () => {
             />
           </div>
           <div className="block">
-            <p className="px-1 text-gray-400/80 dark:text-gray-400 text-xs">give me a score</p>
+            <p className="px-1 text-gray-400/80 dark:text-gray-400 text-xs">
+              give me a score
+            </p>
             <div className="flex items-center ring-[0.5px] ring-gray-400 p-2 py-2.5 rounded-md">
               <Icons.star className="w-5 cursor-pointer stroke-[1px] stroke-gray-200" />
               <Icons.star className="w-5 cursor-pointer fill-yellow-500 stroke-[1px] stroke-gray-200" />
@@ -48,7 +51,8 @@ const Feedback = () => {
           />
         </div>
         <button className="flex items-center justify-center gap-2">
-          <Icons.check className="w-10 stroke-white dark:bg-gray-100/50 bg-gray-300 p-1 rounded-md stroke-2" />
+          {/* <Icons.check className="w-10 stroke-white dark:bg-gray-100/50 bg-gray-300 p-1 rounded-md stroke-2" /> */}
+          <Loading className="w-7" />
           <p className="p-1.5 bg-teal-500 text-white font-bold text-xl rounded-md w-full">
             Share FeedBack
           </p>

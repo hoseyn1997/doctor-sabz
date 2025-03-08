@@ -4,6 +4,7 @@ import Loader from "../../loader";
 import { Icons } from "../../Icons/Icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import useUserStore from "@/store/userStore";
 
 declare interface WebSocketMessage {
   type:
@@ -14,6 +15,8 @@ declare interface WebSocketMessage {
     | "code-sended";
   value?: number;
   token?: string;
+  userId?: string;
+  username?: string;
   succeed?: boolean;
   phoneNumber?: string;
 }
@@ -35,6 +38,7 @@ const CountdownTimer = ({
   const ws = useRef<WebSocket | null>(null);
   const code_input = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const { setXUser } = useUserStore();
 
   const sendConfirmationCode = async (code: string, phoneNumber: string) => {
     setverifying(true);
@@ -65,22 +69,23 @@ const CountdownTimer = ({
       const message: WebSocketMessage = JSON.parse(event.data);
       if (message.type === "countdown" && message.value !== undefined) {
         setCountdown(message.value);
-        console.log("code sended to the user..");
+        // console.log("code sended to the user..");
       }
       if (message.type === "virify_code_result") {
-        console.log(message.token);
+        // console.log(message.token);
         if (!!message.token) {
           setToken(message.token);
+          setXUser({
+            loggedIn: true,
+            userId: message.userId!,
+            username: message.username!,
+          });
           document.cookie = `token=${message.token}; path=/;`;
           router.push("/");
           setPhoneNumber(null);
         } else {
           setVerifyError("کد اشتباه است یا مشکلی رخ داد");
         }
-        // console.log(
-        //   "verify-was" + message.succeed ? "successfull" : "unsuccessfull",
-        //   message.token
-        // );
       }
     };
 
@@ -108,7 +113,7 @@ const CountdownTimer = ({
   };
 
   return (
-    <div className="error grid gap-0 text-center w-[330px] p-4 rounded-xl shadow-[0px_0px_2px_0px_#a1a3a8]">
+    <div className="error grid gap-2 text-center w-[330px] p-4 rounded-xl shadow-[0px_0px_2px_0px_#a1a3a8]">
       <div className="rtl mb-4 flex items-center justify-center">
         <Image
           className="float-right w-10 scale-150 rounded-full"
@@ -118,19 +123,31 @@ const CountdownTimer = ({
           height={40}
           priority
         />
-        <span className="font-danaBold mx-auto font-[1000] text-xl text-green-600">
+        {/* <span className="font-danaBold mx-auto font-[1000] text-xl text-green-600">
           <p className="text-center rtl text-xs text-green-600 font-bold">
             کد با موفقیت ارسال شد.
           </p>
           {phoneNumber}
+        </span> */}
+        <span className="font-danaBold mx-auto font-[1000]">
+          ورود با شماره تلفن
         </span>
+      </div>
+      <div className="mb-4 text-xs">
+        کد با موفقیت ارسال شد
+        <a
+          className="mx-2 font-bold text-green-500 hover:text-green-500 "
+          href="/auth/register"
+        >
+          {phoneNumber}
+        </a>
       </div>
 
       {!!!token ? (
         <>
           <div className="flex items-center gap-4">
-            <div className="flex justify-between w-full items-center p-2">
-              <span className="text-2xl font-bold text-green-600 ring-[0.5px] ring-gray-100 p-1 rounded-full aspect-square w-10 pt-2 px-1">
+            <div className="flex justify-between w-full items-center px-2">
+              <span className="text-gray-500 dark:text-gray-300">
                 {countdown}
               </span>
               <button

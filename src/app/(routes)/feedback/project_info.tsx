@@ -34,11 +34,7 @@ const ProjectInfo = () => {
           </span>
           <div className="relative flex items-center w-fit gap-2 text-xs text-gray-400 font-bold group h-6">
             <Icons.github className="w-5 bg-gray-100/50 p-0.5 rounded" />
-            <div
-              className="hidden group-hover:flex
-            absolute -top-8 -right-5 bg-white dark:bg-gray-800 z-10
-            shadow-[0px_0px_1px_0px_gray] gap-3 rounded-full px-2 py-2"
-            >
+            <div className="hidden group-hover:flex absolute -top-8 -right-5 bg-white dark:bg-gray-800 z-10 shadow-[0px_0px_1px_0px_gray] gap-3 rounded-full px-2 py-2">
               {/* <p className="max-w-48 truncate overflow-hidden">
                 https://github.com/dashboard/hoseyn1997/doctor-sabz
               </p> */}
@@ -52,9 +48,7 @@ const ProjectInfo = () => {
           </div>
           <div className="relative flex items-center w-fit gap-2 text-xs text-gray-400 font-bold group h-6">
             <Icons.email className="w-5 bg-gray-100/50 p-0.5 rounded stroke-black/60" />
-            <div
-              className="hidden group-hover:flex bsolute -top-8 -right-5 bg-white dark:bg-gray-800 z-10 shadow-[0px_0px_1px_0px_gray] gap-3 rounded-full px-2 py-2"
-            >
+            <div className="hidden group-hover:flex absolute -top-8 -right-5 bg-white dark:bg-gray-800 z-10 shadow-[0px_0px_1px_0px_gray] gap-3 rounded-full px-2 py-2">
               {/* <p className="max-w-48 truncate overflow-hidden">
                 hosein1252212@gmail.com
               </p> */}
@@ -87,6 +81,13 @@ const ProjectInfo = () => {
             <Icons.tailwind className="w-14 bg-gray-100 dark:bg-gray-50/60 p-1.5 rounded-xl" />
             <Icons.postgres className="w-14 bg-gray-100 dark:bg-gray-50/60 p-1.5 rounded-xl" />
             <Icons.docker className="w-14 bg-gray-100 dark:bg-gray-50/60 p-1.5 rounded-xl" />
+            <Image
+              src={"/assets/zustand.jpg"}
+              alt="zustand"
+              width={56}
+              height={56}
+              className="w-14 bg-gray-100 dark:bg-gray-50/60 p-1.5 rounded-xl object-cover"
+            />
             <div className="grid grid-cols-2 gap-0.5 hover:scale-[2] hover:bg-white/95 transition-all rounded items-center p-0.5 group hover:ring-1 ring-gray-200 dark:ring-0">
               <Icons.git className="w-6 bg-gray-100 dark:bg-gray-50/60 p-0.5 rounded group-hover:bg-white/0" />
               <Icons.github className="w-6 bg-gray-100 dark:bg-gray-50/60 p-0.5 rounded group-hover:bg-white/0" />
@@ -95,7 +96,6 @@ const ProjectInfo = () => {
             </div>
             <div className="grid grid-cols-2 gap-0.5 hover:scale-[2] hover:bg-white/95 transition-all rounded items-center p-0.5 group hover:ring-1 ring-gray-200 dark:ring-0">
               <Icons.html className="w-6 bg-gray-100 dark:bg-gray-50/60 p-0.5 rounded group-hover:bg-white/0" />
-              <Icons.linkdin className="w-6 bg-gray-100 dark:bg-gray-50/60 p-0.5 rounded group-hover:bg-white/0" />
               <Icons.vscode className="w-6 bg-gray-100 dark:bg-gray-50/60 p-0.5 rounded group-hover:bg-white/0" />
               <Icons.css className="w-6 bg-gray-100 dark:bg-gray-50/60 p-0.5 rounded group-hover:bg-white/0" />
             </div>

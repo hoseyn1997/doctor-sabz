@@ -2,14 +2,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import { verify } from "jsonwebtoken";
+// import { verify } from "jsonwebtoken";
 
 interface Props {
   params: Promise<{ id: string }>; // Expect params to be a Promise
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+// const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 export async function GET(request: NextRequest, { params }: Props) {
   // get the videoid
   const resolvedParams = await params; // Resolve the Promise
@@ -29,17 +29,17 @@ export async function GET(request: NextRequest, { params }: Props) {
   const start = Number(range.replace(/\D/g, ""));
   const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
 
-  if (end >= videoSize / 2) {
-    const token = request.cookies.get("token")?.value;
-    if (!token) return new NextResponse("Requires Token", { status: 401 });
-    try {
-      const encodedToken = verify(token, JWT_SECRET);
-      console.log("you can stream the video");
-    } catch (error) {
-      console.log("you are not logged in.");
-      return new NextResponse("Requires Valid Token", { status: 401 });
-    }
-  }
+  // if (end >= videoSize / 2) {
+  //   const token = request.cookies.get("token")?.value;
+  //   if (!token) return new NextResponse("Requires Token", { status: 401 });
+  //   try {
+  //     const encodedToken = verify(token, JWT_SECRET);
+  //     console.log("you can stream the video");
+  //   } catch (error) {
+  //     console.log("you are not logged in.");
+  //     return new NextResponse("Requires Valid Token", { status: 401 });
+  //   }
+  // }
 
   // Create headers
   const contentLength = end - start + 1;

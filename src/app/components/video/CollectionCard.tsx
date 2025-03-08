@@ -26,7 +26,7 @@ const CollectionCard = (props: Props) => {
       // onMouseOver={() => setPreview(true)}
       // onMouseLeave={() => setPreview(false)}
       className="relative grid gap-1 group rtl w-full rounded-xl transition-all cursor-pointer 
-        justify-self-center hover:bg-gray-50/60 dark:hover:bg-gray-50/5 p-2"
+        justify-self-center hover:bg-gray-50/60 dark:hover:bg-gray-50/0 p-2"
     >
       <Image
         src={props.photo}
@@ -34,6 +34,7 @@ const CollectionCard = (props: Props) => {
         width={320}
         height={170}
         style={{ height: "auto" }}
+        priority
         className="w-full rounded-xl sm:max-h-40 lg:max-h-44 object-cover aspect-video"
         // onTouchStart={() => setPreview(true)}
         // onTouchEnd={() => setPreview(false)}

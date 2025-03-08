@@ -1,7 +1,11 @@
 const express = require("express");
 const WebSocket = require("ws");
 const http = require("http");
-const { handle_send_code, handle_verify_code, verification_timed_out } = require("./functionality");
+const {
+  handle_send_code,
+  handle_verify_code,
+  verification_timed_out,
+} = require("./functionality");
 
 const app = express();
 const server = http.createServer(app);
@@ -23,10 +27,6 @@ wss.on("connection", (ws) => {
         phoneNumber = data.phoneNumber;
         initializeCountdown(phoneNumber, ws);
       }
-      // if (data.type === "register_again" && data.phoneNumber) {
-      //   phoneNumber = data.phoneNumber;
-      //   initializeCountdown(phoneNumber, ws);
-      // }
 
       // get the code from client:
       if (data.type === "code" && data.code) {
@@ -37,6 +37,8 @@ wss.on("connection", (ws) => {
             if (verify_result.isconfirmed) {
               entry.is_succeed = true;
               entry.token = verify_result.data.token;
+              entry.userId = verify_result.data.userId;
+              entry.username = verify_result.data.username;
               // send the verification result to the client:
               send_verify_code_result(data.phoneNumber, entry);
               cleanupClient(data.phoneNumber, ws);
@@ -115,7 +117,7 @@ function startCountdown(phoneNumber, entry) {
     //countdown is ended
     if (entry.countdown === 0) {
       console.log("counting eded... now reset the user info...");
-      verification_timed_out(phoneNumber)
+      verification_timed_out(phoneNumber);
       try {
         // setCountingDown(phoneNumber, false);
       } catch (error) {
@@ -141,6 +143,8 @@ function send_verify_code_result(phoneNumber, entry) {
           type: "virify_code_result",
           succeed: entry.is_succeed,
           token: entry.token,
+          userId: entry.userId,
+          username: entry.username,
         })
       );
     }

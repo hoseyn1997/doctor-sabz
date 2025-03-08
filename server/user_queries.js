@@ -103,10 +103,15 @@ async function verify_code(phoneNumber, code) {
       // console.log("stage5-i have an error in updating user field");
 
       return new Confirmation_Response(
-        { is_code_currect: false, code: code },
+        {
+          is_code_currect: false,
+          code: code,
+          userId: user.Id,
+          username: user.UserName,
+        },
         false,
         {
-          message: "عملیات ناموفق. لطفا دوباره تلاش کنید.ش",
+          message: "عملیات ناموفق. لطفا دوباره تلاش کنید.",
         }
       );
     }
@@ -124,8 +129,10 @@ async function verify_code(phoneNumber, code) {
 }
 
 class Confirmation_Response {
-  constructor(data, isconfirmed, error) {
-    (this.data = data), (this.isconfirmed = isconfirmed), (this.error = error);
+  constructor(data, isconfirmed, error, user) {
+    this.data = data;
+    this.isconfirmed = isconfirmed;
+    this.error = error;
   }
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import useVideoStore from "@/store/videoStore";
+import usePlayerStore from "@/store/playerStore";
 import { Icons } from "../Icons/Icons";
 
 interface Props {
@@ -37,7 +37,7 @@ const CustomVideoPlayer: React.FC<Props> = ({ inputVideoId }: Props) => {
     setIsPlaying,
     setIsMuted,
     setPlaybackSpeed,
-  } = useVideoStore();
+  } = usePlayerStore();
 
   useEffect(() => {
     const video = videoRef?.current;

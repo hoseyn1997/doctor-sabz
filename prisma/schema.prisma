@@ -119,4 +119,5 @@ model Video {
   Collection Collection @relation(fields: [CollectionId], references: [Id], onDelete: Cascade)
 
   @@index([CollectionId, Order])
+  @@index([CreatedAt])
 }

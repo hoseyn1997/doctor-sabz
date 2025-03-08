@@ -2,13 +2,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icons } from "./Icons/Icons";
 import Link from "next/link";
+import useUserStore from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 const NavUserSettings = () => {
   const [showProfile, setShowProfile] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  // Handle clicks outside the button and div
+  const { logOut, x_user: user } = useUserStore();
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -43,30 +47,46 @@ const NavUserSettings = () => {
       {showProfile && (
         <div
           ref={divRef}
-          className="absolute flex flex-col gap-2.5 items-end text-sm p-5 -bottom-28 rounded-xl h-28 left-4 min-w-max bg-white 
+          className="absolute flex flex-col gap-2.5 items-end text-sm p-4 -bottom-28 rounded-xl h-28 left-4 min-w-max bg-white 
                   dark:bg-[#16171a] shadow-[0px_0px_1px_gray] dark:shadow-[0px_0px_1px_#fff]"
         >
-          <Link href={"/"} className="flex items-center gap-2">
-            پروفایل <Icons.dashboard className="w-4" />
+          <Link
+            href={user?.loggedIn ? `/profile/${user?.username}?menue=true` : "/"}
+            className="flex items-center gap-2"
+          >
+            {user?.loggedIn ? (
+              <>
+                پروفایل
+                <Icons.dashboard className="w-4 stroke-current" />
+              </>
+            ) : (
+              <>
+                خانه
+                <Icons.home className="w-4 stroke-current" />
+              </>
+            )}
           </Link>
-          {/* <CustomLink href="/" className="flex items-center gap-1">
-            پروفایل <Icons.dashboard className="w-4" />
-          </CustomLink> */}
-          {/* <Register /> */}
           <Link href={"/auth/register"} className="flex items-center gap-2">
             ثبت نام
-            <Icons.login className="w-4" />
+            <Icons.user className="w-4 stroke-current" />
           </Link>
-
-          {/* <Link href={"/"} className="flex items-center gap-2">
-            خروج
-            <Icons.logout className="w-4" />
-          </Link> */}
-          {/* <Login /> */}
-          <Link href={"/auth/login/phone"} className="flex items-center gap-2">
-            ورود
-            <Icons.login className="w-4" />
-          </Link>
+          {user?.loggedIn ? (
+            <button
+              className="flex items-center gap-2"
+              onClick={() => logOut().then(() => router.push("/"))}
+            >
+              خروج
+              <Icons.logout className="w-4 stroke-current" />
+            </button>
+          ) : (
+            <Link
+              href={"/auth/login/phone"}
+              className="flex items-center gap-2"
+            >
+              ورود
+              <Icons.login className="w-4 stroke-current" />
+            </Link>
+          )}
         </div>
       )}
     </div>
