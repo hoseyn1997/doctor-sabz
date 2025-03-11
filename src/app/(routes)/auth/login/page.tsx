@@ -1,6 +1,6 @@
 "use client";
-import { Icons } from "@/app/components/Icons/Icons";
-import Loader from "@/app/components/loader";
+import { Icons } from "@/app/components/ui/icons/Icons";
+import Loader from "@/app/components/ui/loader/loader";
 import { ErrorMessage, Field, Formik } from "formik";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import useUserStore from "@/store/userStore";
+import useUserStore from "@/lib/stores/userStore";
 
 export default function page() {
   const [showPass, setShowPass] = useState(false);

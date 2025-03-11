@@ -1,8 +1,8 @@
-import ProjectInfo from "./project_info";
-import WhatsNew from "./whats_new";
-import CreatorInfo from "./creator_info";
-import Feedback from "./feedback";
-import Feedbacks from "./feedbacks";
+import ProjectInfo from "./components/project_info";
+import WhatsNew from "./components/whats_new";
+import CreatorInfo from "./components/creator_info";
+import Feedback from "./components/feedback";
+import Feedbacks from "./components/feedbacks";
 
 export default function Page() {
   return (

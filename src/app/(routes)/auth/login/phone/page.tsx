@@ -1,6 +1,6 @@
 "use client";
-import { Icons } from "@/app/components/Icons/Icons";
-import Loader from "@/app/components/loader";
+import { Icons } from "@/app/components/ui/icons/Icons";
+import Loader from "@/app/components/ui/loader/loader";
 import { ErrorMessage, Formik } from "formik";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
@@ -8,13 +8,16 @@ import * as Yup from "yup";
 import Image from "next/image";
 import axios from "axios";
 import toast from "react-hot-toast";
-import CountdownTimer from "@/app/components/pages/auth/countdownTimer";
+import CountdownTimer from "@/app/(routes)/auth/components/countdownTimer";
+import useUserStore from "@/lib/stores/userStore";
 
 export default function Page() {
   const [codeTimer, setCodeTimer] = useState(60);
   const timeRef = useRef<any>(null);
   const [sendingCode, setSendingCode] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  // const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+
+  const {phoneNumber, setPhoneNumber} = useUserStore();
 
   const handleSubmit = async (phoneNumber: string) => {
     setSendingCode(true);

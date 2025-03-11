@@ -39,6 +39,7 @@ wss.on("connection", (ws) => {
               entry.token = verify_result.data.token;
               entry.userId = verify_result.data.userId;
               entry.username = verify_result.data.username;
+              console.log("verifyed result is: ", verify_result);
               // send the verification result to the client:
               send_verify_code_result(data.phoneNumber, entry);
               cleanupClient(data.phoneNumber, ws);

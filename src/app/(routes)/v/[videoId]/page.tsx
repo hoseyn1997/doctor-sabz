@@ -1,15 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
-import { prisma } from "@/lib/db";
-import Player from "@/app/components/video/Player";
-import Card from "@/app/(routes)/v/Card";
+import { prisma } from "@/lib/db/db";
+import Player from "@/app/(routes)/v/components/Player";
 import { notFound } from "next/navigation";
-import { Icons } from "@/app/components/Icons/Icons";
-import DotLoading from "@/app/components/dot_loading";
-import InteractButton from "../interact_button";
-import VideoInfo from "../video_total_inof";
-import CollectionVideos from "../collection_videos";
-import SimilarVideos from "../similar_videos";
+import VideoInfo from "../components/video_total_inof";
+import CollectionVideos from "../components/collection_videos";
 
 interface Props {
   params: Promise<{ videoId: string }>;

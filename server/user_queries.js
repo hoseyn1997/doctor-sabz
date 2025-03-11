@@ -53,7 +53,11 @@ async function generate_token(phoneNumber, user) {
       },
     });
   }
-  const token = jwt.sign({ userId: user.Id }, JWT_SECRET, { expiresIn: "2h" });
+  const token = jwt.sign(
+    { userId: user.Id, username: user.UserName },
+    JWT_SECRET,
+    { expiresIn: "24h" }
+  );
   return token;
 }
 
@@ -67,6 +71,7 @@ async function verify_code(phoneNumber, code) {
   });
 
   // console.log("stage2-the user actuall code is:", user.PhoneConfirmationCode);
+  // console.log("the user found:", user);
 
   if (user.IsCountingDown) {
     const is_code_currect = user.PhoneConfirmationCode === code;
@@ -89,10 +94,13 @@ async function verify_code(phoneNumber, code) {
         },
       });
       const generated_token = await generate_token(phoneNumber, user);
+
       return new Confirmation_Response(
         {
           code: code,
           token: is_code_currect ? generated_token : "",
+          userId: user.Id,
+          username: user.UserName,
         },
         is_code_currect,
         {

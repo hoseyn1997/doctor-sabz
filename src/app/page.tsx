@@ -1,8 +1,9 @@
 export const dynamic = "force-dynamic";
 import { Metadata } from "next";
-import { prisma } from "@/lib/db";
-import VideosList from "./components/video/videos";
-import Blogs from "./(routes)/blog/blogs";
+import { prisma } from "@/lib/db/db";
+import Blogs from "./(routes)/blog/components/blogs";
+import Link from "next/link";
+import VideosList from "./components/layout/home/videos";
 
 export const metadata: Metadata = {
   title: "Home - ویدیو سبز",
@@ -14,7 +15,7 @@ export const viewport = {
   themeColor: "#000",
 };
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 4;
 // interface HomeProps {
 //   searchParams: {
 //     page?: string;
@@ -50,7 +51,33 @@ export default async function Home({ searchParams }: HomeProps) {
   const totalPages = Math.ceil(totalVideos / ITEMS_PER_PAGE);
 
   return (
-    <div className="rtl max-w-screen-container mx-auto px-3 lg:px-0 transition-all overflow-x-hidden ">
+    <div className="rtl max-w-screen-container mx-auto px-3 lg:px-0 transition-all overflow-x-hidden py-6">
+      <div className="flex justify-start gap-2 items-center fixed top-16 dark:bg-dark bg-white z-[19] w-full p-0">
+        <Link
+          href={"/"}
+          className="text-xs p-1.5 border-solid border-t-2 dark:border-white text-black dark:text-white"
+        >
+          همه
+        </Link>
+        <Link
+          href={"/"}
+          className="text-xs p-1.5 text-gray-400 dark:text-gray-300"
+        >
+          آموزشی
+        </Link>
+        <Link
+          href={"/"}
+          className="text-xs p-1.5 text-gray-400 dark:text-gray-300"
+        >
+          سرگرمی
+        </Link>
+        <Link
+          href={"/"}
+          className="text-xs p-1.5 text-gray-400 dark:text-gray-300"
+        >
+          محبوب ترین ها
+        </Link>
+      </div>
       <p className="text-sm lg:text-lg my-3 font-bold w-fit text-green-500">
         ویژه‌های ویدئو سبز
       </p>

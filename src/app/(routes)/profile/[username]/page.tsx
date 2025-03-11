@@ -1,12 +1,24 @@
-import { Icons } from "@/app/components/Icons/Icons";
-import { prisma } from "@/lib/db";
+// profile/[username]
+import { prisma } from "@/lib/db/db";
 import { Metadata } from "next";
-import Image from "next/image";
 import React from "react";
-import Link from "next/link";
-import ChangeTheme from "@/app/components/changeTheme";
-import LogOut from "@/app/components/logOut";
-import Dashboard from "./dashboard";
+import ChangeTheme from "@/app/(routes)/profile/components/changeTheme";
+import LogOut from "@/app/(routes)/profile/components/logOut";
+import AdminItems from "../components/admin/admin_items";
+import ItemsHeader from "../components/items_header";
+import ContentHeader from "../components/content_header";
+import UserItems from "../components/user/user_items";
+import {
+  AdminContents,
+  UserMainContents,
+} from "@/app/(routes)/profile/components/content";
+import {
+  Dashboard_item_StylingOPtions,
+  DashboardMainItems_admin,
+  DashboardMainItems_user,
+  SearchParameters_admin,
+  SearchParameters_user,
+} from "@/app/(routes)/profile/components/dashboard";
 
 interface Props {
   params: Promise<{ username: string }>;
@@ -25,29 +37,37 @@ export const generateMetadata = async ({
 
 export default async function Page({ params, searchParams }: Props) {
   const { username } = await params;
-  const { tab, menue } = await searchParams;
 
-  let content;
+  let searchParameters: SearchParameters_admin | undefined = undefined;
+  let searchParameters_user: SearchParameters_user | undefined = undefined;
+
+  let info;
   let menue_is_open;
 
-  // Conditional rendering based on the 'tab' parameter
-  switch (tab) {
-    case "settings":
-      content = <p>settings</p>;
-      break;
-    case "dashboard":
-      content = <Dashboard />;
-      break;
-    default:
-      content = <p>content</p>;
-  }
+  const searchParameters_info = await searchParams;
 
-  switch (menue) {
-    case "true":
-      menue_is_open = true;
-      break;
-    default:
-      menue_is_open = false;
+  if (username === "admin" && searchParameters_info) {
+    searchParameters = searchParameters_info;
+    if (searchParameters && searchParameters.tab)
+      info = AdminContents[searchParameters.tab];
+    switch (searchParameters.menue) {
+      case "true":
+        menue_is_open = true;
+        break;
+      default:
+        menue_is_open = false;
+    }
+  } else {
+    searchParameters_user = searchParameters_info;
+    if (searchParameters_user && searchParameters_user.tab)
+      info = UserMainContents[searchParameters_user.tab];
+    switch (searchParameters_user.menue) {
+      case "true":
+        menue_is_open = true;
+        break;
+      default:
+        menue_is_open = false;
+    }
   }
 
   const user = await prisma.user.findUnique({
@@ -64,110 +84,77 @@ export default async function Page({ params, searchParams }: Props) {
     },
   });
 
-  const handle_tab_select = (
-    tabName: "dashboard" | "settings",
-    option?: "icon" | "content" | "link"
+  const handle_tab_select_admin = (
+    tabName: DashboardMainItems_admin,
+    option?: Dashboard_item_StylingOPtions
   ) => {
-    if (option == "icon") {
-      if (tab === tabName) return "w-6 stroke-teal-500 stroke-2";
-      else return "w-6 stroke-gray-500 stroke-2";
-    }
-    if (option == "content") {
-      if (tab === tabName)
-        return "text-lg hidden md:flex text-teal-500 font-[500]";
-      else
-        return "text-lg hidden md:flex text-gray-500 dark:text-gray-400 font-[500]";
-    }
-    if (option == "link") {
-      return `/profile/${user?.UserName}?tab=${tabName}&menue=${
-        menue == "true" ? "true" : "false"
-      }`;
-    }
-    return `/profile/${user?.UserName}?tab=${tabName}&menue=${
-      menue == "true" ? "true" : "false"
-    }`;
+    if (option == "icon")
+      return searchParameters?.tab === tabName
+        ? "w-6 stroke-teal-500 stroke-2"
+        : "w-6 stroke-gray-500 stroke-2";
+
+    if (option == "info")
+      return searchParameters?.tab === tabName
+        ? "text-sm hidden md:flex text-teal-500 font-[500] truncate"
+        : "text-sm hidden md:flex text-gray-500 dark:text-gray-400 font-[500] truncate";
+
+    if (option == "link")
+      return `/profile/${user?.UserName}?tab=${tabName}&content=${
+        searchParameters?.content
+      }&menue=${searchParameters?.menue == "true" ? "true" : "false"}`;
+
+    return `/profile/${user?.UserName}?tab=${tabName}&content=${
+      searchParameters?.content
+    }&menue=${searchParameters?.menue == "true" ? "true" : "false"}`;
+  };
+  const handle_tab_select_user = (
+    tabName: DashboardMainItems_user,
+    option?: Dashboard_item_StylingOPtions
+  ) => {
+    if (option == "icon")
+      return searchParameters_user?.tab === tabName
+        ? "w-6 stroke-teal-500 stroke-2"
+        : "w-6 stroke-gray-500 stroke-2";
+
+    if (option == "info")
+      return searchParameters_user?.tab === tabName
+        ? "text-sm hidden md:flex text-teal-500 font-[500] truncate"
+        : "text-sm hidden md:flex text-gray-500 dark:text-gray-400 font-[500] truncate";
+
+    if (option == "link")
+      return `/profile/${user?.UserName}?tab=${tabName}&content=${
+        searchParameters_user?.content
+      }&menue=${searchParameters_user?.menue == "true" ? "true" : "false"}`;
+
+    return `/profile/${user?.UserName}?tab=${tabName}&content=${
+      searchParameters_user?.content
+    }&menue=${searchParameters_user?.menue == "true" ? "true" : "false"}`;
   };
 
   return (
     <div className="maxContainer:max-w-screen-container mx-auto">
       <div className="mx-auto min-h-48 md:rounded-3xl grid grid-cols-12 px-3 my-0 maxContainer:my-14 md:shadow-none maxContainer:shadow-[0px_0px_46px_0px_#86868638]">
         {menue_is_open && (
-          <div className="grid md:col-span-3 lg:col-span-2 min-h-48 shadow-[1px_0px_0px_0px_#8080802b] dark:shadow-[1px_0px_0px_0px_#8080805e] py-10 pt-4 px-2 md:px-5 fixed left-0 md:relative bg-white dark:bg-dark">
-            <div className="flex items-center gap-3 mb-10 md:px-3">
-              <Image
-                src="/logo192.png"
-                alt="video-sabz"
-                width={50}
-                height={50}
-                className="w-12 hidden md:block md:w-14 aspect-square bg-gray-100 dark:bg-gray-100/30 p-0 rounded-xl"
+          <div className="block md:col-span-3 lg:col-span-2 min-h-48 shadow-[1px_0px_0px_0px_#8080802b] dark:shadow-[1px_0px_0px_0px_#8080805e] py-10 pt-4 px-2 md:px-5 fixed left-0 md:relative bg-white dark:bg-dark">
+            <ItemsHeader
+              username={username}
+              searchParameters={
+                username === "admin"
+                  ? searchParameters!
+                  : searchParameters_user!
+              }
+            />
+            {username === "admin" ? (
+              <AdminItems
+                searchParameters={searchParameters!}
+                handle_tab_select_admin={handle_tab_select_admin}
               />
-              <Link
-                href={`/profile/${username}?tab=${tab}&menue=${
-                  menue == "true" ? "false" : "true"
-                }`}
-                className="block md:hidden mx-auto"
-              >
-                <Icons.menu className="w-7" />
-              </Link>
-              <div className="self-end hidden md:block">
-                <p className="text-lg font-bold">ویدیو سبز</p>
-                <span className="text-xs hidden md:flex text-gray-400">
-                  سرویس پخش و اشتراک ویدئو
-                </span>
-              </div>
-            </div>
-            <div className="grid gap-5 mb-10 px-3">
-              <Link
-                href={handle_tab_select("dashboard")}
-                className="flex items-center gap-2 cursor-pointer"
-              >
-                {tab == "dashboard" && (
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal-500"></div>
-                )}
-                <Icons.dashboard
-                  className={handle_tab_select("dashboard", "icon")}
-                />
-                <span className={handle_tab_select("dashboard", "content")}>
-                  Dashboard
-                </span>
-              </Link>
-              <Link
-                href={handle_tab_select("settings")}
-                className="flex items-center gap-2 cursor-pointer"
-              >
-                {tab == "settings" && (
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal-500"></div>
-                )}
-                <Icons.grip className={handle_tab_select("settings", "icon")} />
-                <span className={handle_tab_select("settings", "content")}>
-                  Content
-                </span>
-              </Link>
-              <li className="flex items-center gap-2 cursor-pointer">
-                <Icons.addtolist className="w-6 stroke-gray-500 stroke-2 fill-gray-500" />
-                <span className="text-lg hidden md:flex text-gray-500 dark:text-gray-400 font-[500]">
-                  Saved
-                </span>
-              </li>
-              <li className="flex items-center gap-2 cursor-pointer">
-                <Icons.check className="w-6 stroke-gray-500 stroke-2" />
-                <span className="text-lg hidden md:flex text-gray-500 dark:text-gray-400 font-[500]">
-                  Likes
-                </span>
-              </li>
-              <li className="flex items-center gap-2 cursor-pointer">
-                <Icons.comments className="w-6 stroke-gray-500 stroke-2" />
-                <span className="text-lg hidden md:flex text-gray-500 dark:text-gray-400 font-[500]">
-                  Comments
-                </span>
-              </li>
-              <li className="flex items-center gap-2 cursor-pointer">
-                <Icons.share className="w-6 stroke-gray-500 stroke-2" />
-                <span className="text-lg hidden md:flex text-gray-500 dark:text-gray-400 font-[500]">
-                  Share
-                </span>
-              </li>
-            </div>
+            ) : (
+              <UserItems
+                SearchParameters_user={searchParameters_user!}
+                handle_tab_select_user={handle_tab_select_user}
+              />
+            )}
             <div className="mt-10 py-5 grid gap-5 px-3 shadow-[0px_-1px_0px_0px_#8080802b] dark:shadow-[0px_-1px_0px_0px_gray]">
               <ChangeTheme />
               <LogOut />
@@ -181,33 +168,13 @@ export default async function Page({ params, searchParams }: Props) {
               : "col-span-12 md:col-span-12 minh-48 py-2"
           }
         >
-          <div className="flex justify-between items-center w-full md:w-3/5 mx-auto gap-5">
-            <Link
-              href={`/profile/${username}?tab=${tab}&menue=${
-                menue == "true" ? "false" : "true"
-              }`}
-            >
-              <Icons.menu className="w-7" />
-            </Link>
-            <div className="flex items-center w-full rounded-xl bg-gray-100/70 dark:bg-[#292b30] p-1 md:p-1.5 px-5 shadow-[0px_0px_2px_#8080802b]">
-              <button className="group rounded-full hover:bg-gray-100 dark:hover:bg-dark w-8 h-8 transition-all flex justify-center items-center">
-                <Icons.search className="w-5 stroke-current" />
-              </button>
-              <input
-                type="text"
-                placeholder="اینجا سرچ کن..."
-                className="rtl bg-transparent w-full focus-visible:outline-none p-1 md:p-1.5 text-sm placeholder:text-gray-400 dark:placeholder:text-gray-300/60 text-gray-300 placeholder:text-xs"
-              />
-            </div>
-            <Image
-              src="/assets/tc1.webp"
-              alt="video-sabz"
-              width={80}
-              height={80}
-              className="bg-gradient-to-r w-10 from-teal-100 via-teal-400 to-teal-500 rounded-full aspect-square"
-            />
-          </div>
-          <div className="py-2 lg:px-2">{content}</div>
+          <ContentHeader
+            username={username}
+            searchParameters={
+              username === "admin" ? searchParameters! : searchParameters_user!
+            }
+          />
+          <div className="py-4 lg:px-2">{info}</div>
         </div>
       </div>
     </div>

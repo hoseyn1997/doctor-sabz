@@ -1,6 +1,6 @@
 "use client";
-import { Icons } from "@/app/components/Icons/Icons";
-import Loader from "@/app/components/loader";
+import { Icons } from "@/app/components/ui/icons/Icons";
+import Loader from "@/app/components/ui/loader/loader";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
@@ -9,10 +9,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import useUserStore from "@/lib/stores/userStore";
 
 export default function RegisterStudent() {
   const [registering, setRegistering] = useState(false);
   const router = useRouter();
+  const { setPhoneNumber } = useUserStore();
 
   const initialValues = {
     username: "",
@@ -43,6 +45,7 @@ export default function RegisterStudent() {
       phoneNumber: info.phoneNumber,
       email: info.email,
     });
+    setPhoneNumber(info.phoneNumber)
     router.push("/auth/login/phone");
   };
 

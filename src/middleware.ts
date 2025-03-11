@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyToken } from "./lib/verify_token";
+import { verifyToken } from "./lib/services/verify_token";
 
 type DecodedToken = {
   userId: string;
@@ -29,10 +29,12 @@ export async function middleware(request: NextRequest) {
   // authorize the user to access the profilePage
   if (pathname.startsWith("/profile")) {
     if (!decodedToken) {
+      console.log('error: line 32')
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 
     if (!decodedToken.username) {
+      console.log('erro: line 37')
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 
@@ -40,6 +42,7 @@ export async function middleware(request: NextRequest) {
     const requestedUsername = request.nextUrl.pathname.split("/")[2];
 
     if (requestedUsername !== decodedToken.username) {
+      console.log('error: line 45')
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
