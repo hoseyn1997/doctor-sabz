@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
 import { DashboardMainItems_admin, DashboardMainItems_user } from "./dashboard";
 import Dashboard from "@/app/(routes)/profile/components/admin/dashboard";
+import AddCollection from "./admin/add_collection";
 
 export const AdminContents: Record<DashboardMainItems_admin, ReactNode> = {
   dashboard: <Dashboard />,
-  add_collection: <p>add_collection</p>,
+  add_collection: <AddCollection/>,
   add_blog: <p>add_blog</p>,
   m_collections: <p>m_collections</p>,
   m_blogs: <p>m_blogs</p>,

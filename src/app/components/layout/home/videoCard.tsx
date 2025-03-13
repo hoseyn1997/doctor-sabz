@@ -60,7 +60,7 @@ const VideoCard = ({ video }: Props) => {
               ? "/assets/ILC3l7OeXkB.jpg"
               : video.Order == 3
               ? "/assets/blog/Animeh.png"
-              : video.Collection.Photo?.Photo.FilePath || ""
+              : video.Collection.Photo?.Photo.FilePath || "/assets/ILC3l7OeXkB.jpg"
           }
           alt={video.Title}
           width={320}
@@ -201,15 +201,15 @@ const VideoCard = ({ video }: Props) => {
       </div>
       <div className="flex items-center gap-2 text-[10px]">
         <Image
-          src={video.Collection.Photo?.Photo.FilePath || ""}
-          alt={video.Collection.Teacher}
+          src={video.Collection.Photo?.Photo.FilePath || "/assets/tc1.webp"}
+          alt={video.Collection.Teacher.FullName}
           width={22}
           height={22}
           style={{ height: "auto" }}
           className="rounded-full aspect-square object-cover"
         />
         <span className="text-gray-500 hover:text-gray-200">
-          {video.Collection.Teacher}
+          {video.Collection.Teacher.FullName}
         </span>
         <Icons.check className="w-3 bg-green-700 rounded-full stroke-white stroke-[4] p-0.5" />
       </div>

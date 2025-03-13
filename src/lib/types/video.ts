@@ -9,6 +9,7 @@ export type videoWithCollection = Prisma.VideoGetPayload<{
             Photo: true;
           };
         };
+        Teacher: true;
       };
     };
   };

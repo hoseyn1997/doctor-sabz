@@ -17,7 +17,7 @@ const Preview = ({ videoId, className, collectionPhoto }: VideoPlayerProps) => {
     <div className={className}>
       {videoEnded && (
         <Image
-          src={collectionPhoto!}
+          src={collectionPhoto! ||"/assets/collection1.webp"}
           alt={videoId!}
           width={300}
           height={176}

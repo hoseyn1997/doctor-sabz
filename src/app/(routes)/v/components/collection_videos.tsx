@@ -69,7 +69,7 @@ const CollectionVideos = ({ collection }: Props) => {
                 <Card
                   key={video.Id}
                   title={video.Title}
-                  teacher={collection.Teacher}
+                  teacher={collection.Teacher.FullName}
                   videoId={video.ShortId}
                   video={video}
                 />

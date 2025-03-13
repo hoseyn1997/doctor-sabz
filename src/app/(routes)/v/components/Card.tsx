@@ -22,13 +22,14 @@ export default function Card({ title, teacher, videoId, video }: Props) {
             ? "/assets/ILC3l7OeXkB.jpg"
             : video.Order == 3
             ? "/assets/blog/Animeh.png"
-            : "/assets/ILC3l7OeXkB.jpg"
+            : "/assets/blog/Ultran.png"
         }
         alt=""
         width={176}
         height={96}
         className="object-cover rounded-lg w-44 h-24"
       />
+
       <div className="relative">
         <Link href={`/v/${videoId}`} className="text-xs">
           {title}

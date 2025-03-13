@@ -42,6 +42,7 @@ export default async function page({ params, searchParams }: Props) {
       Videos: true,
       Attendees: true,
       Photo: true,
+      Teacher:true,
     },
   });
 
@@ -54,7 +55,7 @@ export default async function page({ params, searchParams }: Props) {
           </div>
           <div className="col-span-3 lg:col-span-2">
             <Player inputVideoId={videoId} />
-            <VideoInfo video={custom_video} teacher={collection?.Teacher} />
+            <VideoInfo video={custom_video} teacher={collection?.Teacher.FullName} />
           </div>
         </div>
       )}

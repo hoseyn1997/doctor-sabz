@@ -5,5 +5,6 @@ export type collectionWithVideo = Prisma.CollectionGetPayload<{
     Videos: true;
     Attendees: true;
     Photo: true;
+    Teacher:true
   };
 }>;

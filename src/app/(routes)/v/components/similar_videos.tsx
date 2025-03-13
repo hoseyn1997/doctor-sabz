@@ -30,7 +30,7 @@ const SimilarVideos = ({ collection }: Props) => {
         ring-[0.3px] dark:ring-[0.4px] ring-gray-500/70 dark:shadow-[0px_0px_0.6px_#fff] rounded-lg"
         >
           <Icons.fast_forward className="w-4 stroke-current stroke-1" />
-          <p className="text-[10px]">از {collection.Teacher}</p>
+          <p className="text-[10px]">از {collection.Teacher.FullName}</p>
         </button>
       </div>
       <div className="">
@@ -40,7 +40,7 @@ const SimilarVideos = ({ collection }: Props) => {
               <Card
                 key={video.Id}
                 title={video.Title}
-                teacher={collection.Teacher}
+                teacher={collection.Teacher.FullName}
                 videoId={video.ShortId}
                 video={video}
               />

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyToken } from "./lib/services/verify_token";
+import { verifyToken } from "./lib/utils/verify_token";
 
 type DecodedToken = {
   userId: string;

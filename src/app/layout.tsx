@@ -5,7 +5,7 @@ import { ModalProvider } from "../lib/contexts/modalContext";
 import { Toaster } from "react-hot-toast";
 import { headers } from "next/headers";
 import { UserProvider } from "../lib/contexts/userContext";
-import { get_xUser } from "@/lib/services/get_x_user";
+import { get_xUser } from "@/lib/utils/get_x_user";
 import { DrawerProvider } from "../lib/contexts/drawerContext";
 import Navbar from "./components/layout/navbar";
 import Modal from "./components/layout/modal";
