@@ -29,7 +29,15 @@ export async function createTeacher(teacher: teacher, inputPhotoPath = "") {
 }
 
 export async function listTeachers() {
-  return (await prisma.teacher.findMany()) as Teacher[];
+  return (await prisma.teacher.findMany({
+    include: {
+      Photo: {
+        include: {
+          Photo: true,
+        },
+      },
+    },
+  })) ;
 }
 
 export async function getTeacher(id: string): Promise<Teacher | null> {

@@ -72,6 +72,8 @@ import SearchUser from "./search_user";
 import ArrowLeftRight from "./arrow_left_right";
 import Settings from "./settings";
 import VideoCamera from "./video_camera";
+import TextInput from "./text_input";
+import Trash from "./trash";
 
 export const Icons = {
   pause: Pause,
@@ -148,6 +150,8 @@ export const Icons = {
   arrow_left_right: ArrowLeftRight,
   settings: Settings,
   video_camera: VideoCamera,
+  text_input: TextInput,
+  trash: Trash,
 };
 
 export type customIcons =
@@ -224,4 +228,6 @@ export type customIcons =
   | "search_users"
   | "arrow_left_right"
   | "settings"
-  | "video_camera";
+  | "video_camera"
+  | "text_input"
+  | "trash";

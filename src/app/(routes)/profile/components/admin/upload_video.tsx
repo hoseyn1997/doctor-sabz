@@ -1,4 +1,7 @@
 "use client";
+import { Icons } from "@/app/components/ui/icons/Icons";
+import CustomTextArea from "@/app/components/ui/input/custom_text_area";
+import CustomTextInput from "@/app/components/ui/input/custom_text_input";
 import { addVideoToCollection } from "@/lib/actions/collection.action";
 import { Collection } from "@prisma/client";
 import { useActionState, useState } from "react";
@@ -21,11 +24,25 @@ export default function VideoUploadForm({ collection }: Props) {
   return (
     <form
       action={formAction}
-      className="bg-gray-100 dark:bg-dark ring-1 ring-gray-300 my-5 p-5 flex flex-col justify-start items-center gap-3"
+      className="flex flex-col gap-1 my-5 p-1.5 pb-3 sm:p-5 rtl"
     >
-      <input type="text" name="Title" placeholder="Title" />
-      <input type="text" name="Description" placeholder="Description" />
-      <input type="number" name="Order" placeholder="Order" />
+      <div className="flex justify-start items-center gap-2 py-2">
+        <Icons.add className="w-4 stroke-green-500" />
+        <h1 className="text-xs font-bold py-1 text-green-500">افزودن ویدئو</h1>
+      </div>
+      <CustomTextInput type="text" placeholder="عنوان ویدئو" name="Title" />
+      <CustomTextArea
+        name="Description"
+        placeholder="توضیحات ویدئو"
+        icon="star"
+      />
+      <CustomTextInput
+        type="number"
+        name="Order"
+        inputMode="decimal"
+        placeholder="ترتیب ویدئو"
+        icon="vertical_dots"
+      />
       <input
         type="text"
         name="CollectionId"
@@ -33,26 +50,38 @@ export default function VideoUploadForm({ collection }: Props) {
         hidden
         defaultValue={collection.Id}
       />
-      <span>فایل ویدئو:</span>
-      <input
+      <span className="text-[10px] font-thin">فایل ویدئو:</span>
+      <CustomTextInput
         type="file"
         accept="video/*"
         name="file"
-        className="text-xs bg-gray-400 text-white"
+        icon="clapperboard"
       />
-      <span>تصویر ویدئو:</span>
-      <input
+      <span className="text-[10px] font-thin">تصویر ویدئو:</span>
+      <CustomTextInput
         type="file"
         accept="image/*"
         name="photo_file"
-        className="text-xs bg-gray-400 text-white"
+        icon="add_image"
       />
-
+      {state.data && state.data[0] === "e" ? (
+        <>
+          <span className="text-[10px] text-red-500">{"=> "}خطای سیستمی:</span>
+          <p className="text-xs font-bold ring-[0.5px] ring-red-400 text-red-400 p-3 w-full text-center rounded-md">
+            {state.data.split("-")[1]}
+          </p>
+        </>
+      ) : state.data[0] === "s" ? (
+        <p className="text-xs font-bold ring-[0.5px] ring-green-400 text-green-400 p-3 w-full text-center rounded-md">
+          {state.data.split("-")[1]}
+        </p>
+      ) : null}
       <button
+        disabled={pending}
         type="submit"
-        className="text-xs bg-teal-500 text-white p-2 rounded-md"
+        className="text-xs bg-teal-500 hover:bg-teal-400 transition-all duration-200 text-white p-2 rounded-md disabled:opacity-70"
       >
-        {pending ? "Uploading" : "Upload Video"}
+        {pending ? "Uploading..." : "Upload Video"}
       </button>
     </form>
   );

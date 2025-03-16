@@ -14,15 +14,10 @@ const AddVideoButton = ({ collection }: Props) => {
   return (
     <button
       onClick={() => openModal(<VideoUploadForm collection={collection} />)}
-      className="flex gap-1 items-center bg-gray-100/10 ring-1 ring-gray-100 w-full p-1 rounded"
+      className="text-xs flex justify-start items-center gap-2 rounded ring-[0.5px] ring-gray-400 w-fit p-2 self-end"
     >
-      <div className="w-full text-start">
-        <span className="text-[10px]"> افزودن ویدئو به </span>
-        <p className="text-sm">{collection.Title}</p>
-      </div>
-      <div className="rounded-full p-1 w-fit">
-        <Icons.add_image className="w-5" />
-      </div>
+      <Icons.clapperboard className="w-3" />
+      <span>افزودن ویدئو</span>
     </button>
   );
 };

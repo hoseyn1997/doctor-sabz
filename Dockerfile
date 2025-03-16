@@ -1,6 +1,13 @@
 # Step 1: Build Stage  
 FROM node:18 AS builder  
 
+# Install FFmpeg
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory  
 WORKDIR /app  
 
@@ -21,6 +28,13 @@ RUN npm run build
 
 # Step 2: Production Stage  
 FROM node:18 AS production  
+
+# Install FFmpeg in production image
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Ensure proper permissions
 

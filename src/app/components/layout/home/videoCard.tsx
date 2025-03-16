@@ -70,6 +70,7 @@ const VideoCard = ({ video }: Props) => {
         {preview && playingPreview && (
           <Preview
             videoId={video.ShortId}
+            videoPhoto={video.Photo?.Photo.FilePath}
             className="absolute top-0 right-0 left-0 mx-auto rounded-xl p-0"
             collectionPhoto={video.Collection.Photo?.Photo.FilePath}
           />
@@ -197,7 +198,9 @@ const VideoCard = ({ video }: Props) => {
       </div>
       <div className="flex items-center gap-2 text-[10px]">
         <Image
-          src={video.Collection.Photo?.Photo.FilePath || "/assets/tc1.webp"}
+          src={
+            video.Collection.Teacher.Photo?.Photo.FilePath || "/assets/tc1.webp"
+          }
           alt={video.Collection.Teacher?.FullName || ""}
           width={22}
           height={22}

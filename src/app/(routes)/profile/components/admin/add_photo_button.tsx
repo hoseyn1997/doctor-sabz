@@ -1,18 +1,22 @@
 "use client";
 import React from "react";
-import AddItemPhoto from "./add_item_photo";
-import { useModal } from "@/lib/contexts/modalContext";
 import { Teacher } from "@prisma/client";
+import { Icons } from "@/app/components/ui/icons/Icons";
 
 interface Props {
   teacher: Teacher;
 }
 
 const AddPhotoButton = ({ teacher }: Props) => {
-  const { openModal } = useModal();
+  // const { openModal } = useModal();
   return (
-    <button onClick={() => openModal(<AddItemPhoto teacher={teacher} />)}>
-      افزودن تصویر
+    <button
+      // onClick={() => openModal(<AddItemPhoto teacher={teacher} />)}
+      onClick={() => console.log(teacher)}
+      className="text-xs flex justify-start items-center gap-2 rounded ring-[0.5px] ring-gray-400 w-fit p-2 justify-self-end"
+    >
+      <Icons.add_image className="w-3" />
+      ویرایش تصویر مدرس
     </button>
   );
 };

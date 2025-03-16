@@ -4,20 +4,26 @@ import React, { useRef, useState } from "react";
 
 interface VideoPlayerProps {
   videoId?: string;
+  videoPhoto?: string;
   className?: string;
   collectionPhoto?: string;
 }
 
-const Preview = ({ videoId, className, collectionPhoto }: VideoPlayerProps) => {
+const Preview = ({
+  videoId,
+  className,
+  collectionPhoto,
+  videoPhoto,
+}: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const videoUrl = `/api/preview/${videoId}`;
+  const videoUrl = `/api/preview/${videoId?.replace(" ", "")}-preview`;
   const [videoEnded, setVideoEnded] = useState(false);
 
   return (
     <div className={className}>
       {videoEnded && (
         <Image
-          src={collectionPhoto! ||"/assets/collection1.webp"}
+          src={videoPhoto! || collectionPhoto || "/assets/collection1.webp"}
           alt={videoId!}
           width={300}
           height={176}

@@ -26,7 +26,6 @@ async function ValidateCollection(rawData: unknown) {
 
   if (!result.success) {
     const errors = result.error.flatten();
-    console.log("validation errors are: ", errors);
     return {
       data: null,
       errors: {
@@ -91,7 +90,6 @@ export async function createCollection(
   data.TeacherId = teacher.Id;
   data.ShortId = uploadResult.data!.fileName.split("_")[1].split(".")[0];
 
-  console.log("created raw data is: ", data);
   const result = addNewCollection(data, uploadResult.data?.filePath);
   return { success: true };
 }
@@ -109,10 +107,15 @@ export async function addVideoToCollection(
     File: formData.get("file") as File,
     ImageFile: formData.get("photo_file") as File,
   };
-  console.log("recieved information is: ", rawData);
 
   const uploadService = new VideoUploadService();
   const result = await uploadService.uploadVideo(rawData.File);
+
+  if (!result.success) {
+    return {
+      data: "e-مشکل در آپلود ویدئو",
+    };
+  }
 
   const uploadPhotoService = new PhotoUploadService();
   const uploadPhotoResult = await uploadPhotoService.uploadFile(
@@ -120,7 +123,13 @@ export async function addVideoToCollection(
     rawData.ImageFile
   );
 
-  if (result.success) {
+  if (!uploadPhotoResult.success) {
+    return {
+      data: "e-مشکل در آپلود تصویر",
+    };
+  }
+
+  if (result.success && uploadPhotoResult.success) {
     const createVideoResult = await addVideo(
       {
         Title: rawData.Title,
@@ -133,10 +142,8 @@ export async function addVideoToCollection(
       result.data!.filePath,
       uploadPhotoResult.data?.filePath || ""
     );
-
-    console.log("video is created and it is: ", createVideoResult);
   }
   return {
-    data: "every thing is here...",
+    data: "s-ویدئو با موفقیت آپلود شد",
   };
 }

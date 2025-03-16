@@ -1,6 +1,9 @@
 import { randomBytes } from "crypto";
 import { promises as fs } from "fs";
 import path from "path";
+import { generatePreview } from "./video-preview.service";
+import { promisify } from "util";
+import { exec } from "child_process";
 
 type UploadResult = {
   success: boolean;
@@ -67,6 +70,21 @@ export class VideoUploadService {
 
       const buffer = Buffer.from(await file.arrayBuffer());
       await fs.writeFile(absolutePath, buffer);
+
+      // Generate preview
+      const previewFileName = `${fileName.split('.')[0]}-preview.mp4`;
+      const previewFilePath = path.join("videos", previewFileName);
+      const absolutePreviewPath = path.join(process.cwd(), previewFilePath);
+
+      console.log("now its time to generate preview here...");
+      const ffmpegCheck = await promisify(exec)("ffmpeg -version");
+      if (ffmpegCheck.stderr) {
+        console.log("FFmpeg not installed");
+      }
+      await generatePreview(
+        absolutePath,
+        absolutePreviewPath
+      );
 
       return {
         success: true,
