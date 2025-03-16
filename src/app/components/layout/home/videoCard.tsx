@@ -52,28 +52,24 @@ const VideoCard = ({ video }: Props) => {
         className="relative"
       >
         <div className="absolute top-0 z-10 left-0 right-0 rounded-md dark:bg-gradient-to-b from-black/70 to-[rgba(18,_18,_18,_0)] p-2 h-20 text-white shadow-[0_0_0_transparent]"></div>
-        <Image
-          src={
-            video.Order == 1
-              ? "/assets/blog/Movies2024.png"
-              : video.Order == 2
-              ? "/assets/ILC3l7OeXkB.jpg"
-              : video.Order == 3
-              ? "/assets/blog/Animeh.png"
-              : video.Collection.Photo?.Photo.FilePath || "/assets/ILC3l7OeXkB.jpg"
-          }
-          alt={video.Title}
-          width={320}
-          height={170}
-          style={{ height: "auto" }}
-          priority
-          className="w-full rounded-xl sm:max-h-40 lg:max-h-44 object-cover aspect-video"
-          onContextMenu={(e) => e.preventDefault()}
-        />
+        {video.Photo?.Photo.FilePath ? (
+          <Image
+            src={video.Photo?.Photo.FilePath}
+            alt={video.Title}
+            width={320}
+            height={170}
+            style={{ height: "auto" }}
+            priority
+            className="w-full rounded-xl sm:max-h-40 lg:max-h-44 object-cover aspect-video"
+            onContextMenu={(e) => e.preventDefault()}
+          />
+        ) : (
+          <Icons.video_camera className="w-full rounded-xl sm:max-h-40 lg:max-h-44 object-cover aspect-video" />
+        )}
         <div className="absolute bottom-0 z-10 left-0 right-0 rounded-md dark:bg-gradient-to-t from-black/70 to-[rgba(18,_18,_18,_0)] p-2 h-20 text-white shadow-[0_0_0_transparent]"></div>
         {preview && playingPreview && (
           <Preview
-            videoId="preview3"
+            videoId={video.ShortId}
             className="absolute top-0 right-0 left-0 mx-auto rounded-xl p-0"
             collectionPhoto={video.Collection.Photo?.Photo.FilePath}
           />
@@ -202,14 +198,14 @@ const VideoCard = ({ video }: Props) => {
       <div className="flex items-center gap-2 text-[10px]">
         <Image
           src={video.Collection.Photo?.Photo.FilePath || "/assets/tc1.webp"}
-          alt={video.Collection.Teacher.FullName}
+          alt={video.Collection.Teacher?.FullName || ""}
           width={22}
           height={22}
           style={{ height: "auto" }}
           className="rounded-full aspect-square object-cover"
         />
         <span className="text-gray-500 hover:text-gray-200">
-          {video.Collection.Teacher.FullName}
+          {video.Collection.Teacher?.FullName}
         </span>
         <Icons.check className="w-3 bg-green-700 rounded-full stroke-white stroke-[4] p-0.5" />
       </div>

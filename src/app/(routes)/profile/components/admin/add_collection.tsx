@@ -1,12 +1,15 @@
 "use client";
 import { createCollection } from "@/lib/actions/collection.action";
 import React, { useActionState } from "react";
+import VideoUploadForm from "./upload_video";
 
 export type CollectionState = {
   errors?: {
-    title?: string[];
-    content?: string[];
-    description?: string[];
+    Title?: string[];
+    Cost?: string[];
+    DisCount?: string[];
+    Description?: string[];
+    TeacherId?: string[];
   };
   message?: string | null;
   success?: boolean;
@@ -25,47 +28,47 @@ const AddCollection = () => {
         className="flex flex-col gap-2 w-full md:w-1/2 lg:w-1/3 px-1 mx-auto"
       >
         <input
-          type="text"
-          name="title"
-          placeholder="title"
+          type="file"
+          title="file"
+          name="file"
           className="focus-visible:outline-none focus-visible:shadow-[0px_0px_1px_0px_gray] ring-1 ring-gray-200 rounded-xl p-2"
         />
         <input
           type="text"
-          name="content"
-          placeholder="content"
+          name="Title"
+          placeholder="Title"
           className="focus-visible:outline-none focus-visible:shadow-[0px_0px_1px_0px_gray] ring-1 ring-gray-200 rounded-xl p-2"
         />
         <input
           type="text"
-          name="description"
-          placeholder="description"
+          name="Cost"
+          placeholder="Cost"
           className="focus-visible:outline-none focus-visible:shadow-[0px_0px_1px_0px_gray] ring-1 ring-gray-200 rounded-xl p-2"
         />
+        <input
+          type="text"
+          name="DisCount"
+          placeholder="DisCount"
+          className="focus-visible:outline-none focus-visible:shadow-[0px_0px_1px_0px_gray] ring-1 ring-gray-200 rounded-xl p-2"
+        />
+        <input
+          type="text"
+          name="Description"
+          placeholder="Description"
+          className="focus-visible:outline-none focus-visible:shadow-[0px_0px_1px_0px_gray] ring-1 ring-gray-200 rounded-xl p-2"
+        />
+        <input
+          type="text"
+          name="TeacherPhone"
+          placeholder="TeacherPhone"
+          inputMode="tel"
+          className="focus-visible:outline-none focus-visible:shadow-[0px_0px_1px_0px_gray] ring-1 ring-gray-200 rounded-xl p-2"
+        />
+
         {state.errors && (
-          <div className="flex flex-col gap-2 text-center">
-            <p
-              className={`text-red-400 text-xs ${
-                state.errors.content && "p-2 ring-1 ring-red-300"
-              } rounded-lg`}
-            >
-              {state?.errors?.content && state.errors.content}
-            </p>
-            <p
-              className={`text-red-400 text-xs ${
-                state.errors.description && "p-2 ring-1 ring-red-300"
-              } rounded-lg`}
-            >
-              {state?.errors?.description && state.errors.description}
-            </p>
-            <p
-              className={`text-red-400 text-xs ${
-                state.errors.title && "p-2 ring-1 ring-red-300"
-              } rounded-lg`}
-            >
-              {state?.errors?.title && state.errors.title}
-            </p>
-          </div>
+          <p className="text-red-400 text-xs p-2 ring-1 ring-red-300 rounded-lg">
+            مشکلی رخ داد. دوباره تلاش کنید
+          </p>
         )}
         <button className="bg-teal-600 text-white font-bold rounded-md text-sm px-2 py-1">
           {pending ? "loading..." : "submit"}

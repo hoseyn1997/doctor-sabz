@@ -4,7 +4,8 @@ export async function POST() {
   const response = NextResponse.json({ message: "با موفقیت خارج شدید" });
   response.cookies.set("token", "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production" && process.env.HTTPS === "true", // Only in production
+    secure:false, 
+    // process.env.NODE_ENV === "production" && process.env.HTTPS === "true", // Only in production
     maxAge: 1, // 1 hour
     path: "/", // Cookie path
     sameSite: "lax", // SameSite attribute

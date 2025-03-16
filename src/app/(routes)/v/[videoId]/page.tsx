@@ -39,10 +39,18 @@ export default async function page({ params, searchParams }: Props) {
       Id: custom_video?.CollectionId,
     },
     include: {
-      Videos: true,
+      Videos: {
+        include: {
+          Photo: {
+            include: {
+              Photo: true,
+            },
+          },
+        },
+      },
       Attendees: true,
       Photo: true,
-      Teacher:true,
+      Teacher: true,
     },
   });
 
@@ -55,7 +63,10 @@ export default async function page({ params, searchParams }: Props) {
           </div>
           <div className="col-span-3 lg:col-span-2">
             <Player inputVideoId={videoId} />
-            <VideoInfo video={custom_video} teacher={collection?.Teacher.FullName} />
+            <VideoInfo
+              video={custom_video}
+              teacher={collection?.Teacher.FullName}
+            />
           </div>
         </div>
       )}

@@ -71,6 +71,7 @@ import ImagePlus from "./image_plus";
 import SearchUser from "./search_user";
 import ArrowLeftRight from "./arrow_left_right";
 import Settings from "./settings";
+import VideoCamera from "./video_camera";
 
 export const Icons = {
   pause: Pause,
@@ -146,6 +147,7 @@ export const Icons = {
   search_users: SearchUser,
   arrow_left_right: ArrowLeftRight,
   settings: Settings,
+  video_camera: VideoCamera,
 };
 
 export type customIcons =
@@ -221,4 +223,5 @@ export type customIcons =
   | "add_image"
   | "search_users"
   | "arrow_left_right"
-  | "settings";
+  | "settings"
+  | "video_camera";

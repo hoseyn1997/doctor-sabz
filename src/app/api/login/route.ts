@@ -43,8 +43,8 @@ export async function POST(req: Request) {
   // Set the cookie
   response.cookies.set("token", token, {
     httpOnly: true,
-    secure:
-      process.env.NODE_ENV === "production" && process.env.HTTPS === "true", // Only in production
+    secure: false,
+    // process.env.NODE_ENV === "production" && process.env.HTTPS === "true", // Only in production
     // domain:
     //   process.env.NODE_ENV === "production"
     //     ? ".yourdomain.com" // For actual production

@@ -44,6 +44,11 @@ export default async function Home({ searchParams }: HomeProps) {
           Teacher: true,
         },
       },
+      Photo: {
+        include: {
+          Photo: true,
+        },
+      },
     },
   });
 

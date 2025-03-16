@@ -11,7 +11,7 @@ interface Props {
 const CustomVideoPlayer: React.FC<Props> = ({ inputVideoId }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  const [showPlayPauseIcon, setShowPlayPauseIcon] = useState(false);
+  const [showPlayPauseIcon, setShowPlayPauseIcon] = useState(true);
   const videoControlsRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

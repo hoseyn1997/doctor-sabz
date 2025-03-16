@@ -1,4 +1,3 @@
-// profile/[username]
 import { prisma } from "@/lib/db/db";
 import { Metadata } from "next";
 import React from "react";

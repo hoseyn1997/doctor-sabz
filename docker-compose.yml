@@ -8,10 +8,14 @@ services:
       - "8080:8080" # WebSocket server
     volumes:
       - ./videos:/app/videos
+      - ./public/uploads:/app/public/uploads # Keep existing photo uploads
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgres://admin_user:Gbc}W<iN*+L&%j6M@db:5432/mynewdatabase # DB connection string
+      - DATABASE_URL=postgres://admin_user:Gbc}W<iN*+L&%j6M@db:5432/dbV1 # DB connection string
       - SMS_IR_API_KEY=XnYkG4R9iex2k5VfQbYFGsdcAQLhFPJ1r2Vv7XM52nrFkUJhNqZ2ws468CVHsE56 # Add your SMS.ir API key here
+      - JWT_SECRET=QbYFGsdcAQLhFPJ1r2Vv7XM52nrFkUJhNqZ2ws468CV
+      - VIDEO_UPLOAD_DIR=/app/videos
+      - HTTPS=false
     depends_on:
       db:
         condition: service_healthy
@@ -22,13 +26,13 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: mynewdatabase
+      POSTGRES_DB: dbV1
       POSTGRES_USER: admin_user
       POSTGRES_PASSWORD: Gbc}W<iN*+L&%j6M
     ports:
       - "5432:5432" # Exposing PostgreSQL's default port
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin_user -d mynewdatabase"]
+      test: ["CMD-SHELL", "pg_isready -U admin_user -d dbV1"]
       interval: 5s
       timeout: 5s
       retries: 5

@@ -91,6 +91,7 @@ model Photo {
   Collections CollectionPhoto[]
   Users       UserPhoto[]
   Teacher     TeacherPhoto[]
+  Videos      VideoPhoto[]
 }
 
 model UserPhoto {
@@ -182,9 +183,22 @@ model Video {
   SavedByUsers VideoSave[]
   LikedByUsers VideoLike[]
   InPlaylists  PlaylistItem[]
+  Photo        VideoPhoto?
 
   @@index([CollectionId, Order])
   @@index([CreatedAt])
+}
+
+model VideoPhoto {
+  Id      String @id @default(uuid())
+  PhotoId String
+  VideoId String @unique
+
+  // relations
+  Video Video @relation(fields: [VideoId], references: [Id], onDelete: Cascade)
+  Photo Photo @relation(fields: [PhotoId], references: [Id], onDelete: Cascade)
+
+  @@unique([PhotoId, VideoId])
 }
 
 model Comment {

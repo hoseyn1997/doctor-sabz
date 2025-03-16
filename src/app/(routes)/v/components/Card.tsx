@@ -2,33 +2,32 @@ import React from "react";
 import Image from "next/image";
 import { Icons } from "../../../components/ui/icons/Icons";
 import Link from "next/link";
-import { Video } from "@prisma/client";
+import { videoWithPhoto } from "@/lib/types/video";
 
 interface Props {
   title: string;
   teacher: string;
   videoId: string;
-  video: Video;
+  video: videoWithPhoto;
 }
 
 export default function Card({ title, teacher, videoId, video }: Props) {
   return (
     <div className="flex gap-2">
-      <Image
-        src={
-          video.Order == 1
-            ? "/assets/blog/Movies2024.png"
-            : video.Order == 2
-            ? "/assets/ILC3l7OeXkB.jpg"
-            : video.Order == 3
-            ? "/assets/blog/Animeh.png"
-            : "/assets/blog/Ultran.png"
-        }
-        alt=""
-        width={176}
-        height={96}
-        className="object-cover rounded-lg w-44 h-24"
-      />
+      {video.Photo?.Photo.FilePath ? (
+        <Image
+          src={video.Photo?.Photo.FilePath}
+          alt={video.Title}
+          width={176}
+          height={96}
+          style={{ height: "auto" }}
+          priority
+          className="object-cover rounded-lg w-44 h-24 max-h-24"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      ) : (
+        <Icons.video_camera className="object-cover rounded-lg w-44 h-24 max-h-24" />
+      )}
 
       <div className="relative">
         <Link href={`/v/${videoId}`} className="text-xs">

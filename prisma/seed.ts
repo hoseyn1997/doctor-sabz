@@ -37,12 +37,12 @@ async function main() {
 
   if (existingTeacher) return;
   const newTeacher = {
-    ContactPhone: "",
-    FName: "",
-    FullName: "",
-    LName: "",
-    Bio: "",
-    ContactEmail: "",
+    ContactPhone: "09141252212",
+    FullName: "حسن عباسی",
+    FName: "حسن",
+    LName: "عباسی",
+    Bio: "ویژگی‌های اضافی: Tailwind بعنوان فریمورکی به حساب می‌آید که در بخش فرانت-اند وبسایت‌ها اجرا می‌شود. به همین دلیل توسعه‌دهندگان باید انتظارات حداکثری از این فریمورک داشته باشند. Tailwind نیز این انتظارات را به جای خواهد آورد چرا که توسعه‌دهندگان این فریمورک با دیگر فریمورک‌های قبل از خود کار کرده",
+    ContactEmail: "hasan122@gmail.com",
     IsActive: true,
   };
 

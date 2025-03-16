@@ -22,7 +22,12 @@ RUN npm run build
 # Step 2: Production Stage  
 FROM node:18 AS production  
 
+# Ensure proper permissions
+
 WORKDIR /app  
+
+RUN mkdir videos
+RUN chmod -R 777 ./videos
 
 # Copy only the 'build' folder and 'node_modules' from builder stage  
 COPY --from=builder /app/package*.json ./  
@@ -31,6 +36,9 @@ COPY --from=builder /app/.next ./.next/
 COPY --from=builder /app/public ./public/  
 COPY --from=builder /app/prisma ./prisma 
 COPY --from=builder /app/server ./server 
+
+# Add videos directory to production stage
+COPY --from=builder /app/videos ./videos
 
 # Expose port 3000  
 EXPOSE 3000  
