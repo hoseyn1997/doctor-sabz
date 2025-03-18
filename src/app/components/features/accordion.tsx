@@ -39,7 +39,7 @@ const AccordionItem = ({
       <button
         className={`flex justify-between items-center w-full p-4 text-left text-sm transition-colors ${
           isOpen
-            ? "hover:bg-green-400/20 bg-green-300/20"
+            ? "bg-gray-50 dark:bg-gray-50/50"
             : "hover:bg-gray-50 dark:hover:bg-gray-50/50"
         }`}
         onClick={() => setIsOpen(!isOpen)}
@@ -48,7 +48,7 @@ const AccordionItem = ({
       >
         <span
           className={`font-medium text-gray-900 ${
-            isOpen ? "dark:text-gray-900" : "dark:text-gray-300"
+            isOpen ? "dark:text-gray-900" : "dark:text-gray-200"
           }`}
         >
           {title}
@@ -65,7 +65,7 @@ const AccordionItem = ({
           isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className={`p-4 pt-0 text-gray-600 dark:text-gray-400`}>
+        <div className={`p-4 pt-0 text-gray-600 dark:text-gray-300`}>
           {children}
         </div>
       </div>

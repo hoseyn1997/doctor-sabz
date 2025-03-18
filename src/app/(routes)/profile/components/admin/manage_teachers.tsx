@@ -4,6 +4,7 @@ import { Accordion } from "@/app/components/features/accordion";
 import { Icons } from "@/app/components/ui/icons/Icons";
 import Image from "next/image";
 import AddPhotoButton from "./add_photo_button";
+import AddPCollectionButton from "./add_collection_button";
 
 const ManageTeachers = async () => {
   const teachers = await listTeachers();
@@ -54,7 +55,10 @@ const ManageTeachers = async () => {
                   </div>
                   <p>{teacher.Bio}</p>
                 </div>
-                <AddPhotoButton teacher={teacher} />
+                <div className="flex gap-2 items-center justify-end">
+                  <AddPhotoButton teacher={teacher} />
+                  <AddPCollectionButton teacher={teacher} />
+                </div>
               </div>
             ),
           };

@@ -9,12 +9,12 @@ import Soon from "./soon";
 
 export const AdminContents: Record<DashboardMainItems_admin, ReactNode> = {
   dashboard: <Dashboard />,
-  add_collection: <AddCollection />,
+  add_teacher: <AddTeacher />,
+  m_teachers: <ManageTeachers />,
+  add_collection: <AddCollection teacherId="teacherId" />,
   add_blog: <Soon />,
   m_collections: <ManageCollections />,
   m_blogs: <Soon />,
-  add_teacher: <AddTeacher />,
-  m_teachers: <ManageTeachers />,
   m_users: <Soon />,
   m_transactions: <Soon />,
   m_notifs: <Soon />,

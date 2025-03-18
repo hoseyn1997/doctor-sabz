@@ -1,6 +1,9 @@
 import React from "react";
 import AdminItem from "./admin_item";
-import { DashboardMainItems_admin, SearchParameters_admin } from "@/app/(routes)/profile/components/dashboard";
+import {
+  DashboardMainItems_admin,
+  SearchParameters_admin,
+} from "@/app/(routes)/profile/components/dashboard";
 
 interface Props {
   searchParameters: SearchParameters_admin;
@@ -22,38 +25,6 @@ const AdminItems = ({ searchParameters, handle_tab_select_admin }: Props) => {
         title="داشبورد"
       />
       <AdminItem
-        id="add_collection"
-        name="add_collection"
-        handle_tab_select_admin={handle_tab_select_admin}
-        icon="add"
-        searchParameters={searchParameters}
-        title="ایجاد کالکشن"
-      />
-      <AdminItem
-        id="add_blog"
-        name="add_blog"
-        handle_tab_select_admin={handle_tab_select_admin}
-        icon="add_image"
-        searchParameters={searchParameters}
-        title="ایجاد وبلاگ"
-      />
-      <AdminItem
-        id="m_collections"
-        name="m_collections"
-        handle_tab_select_admin={handle_tab_select_admin}
-        icon="video_list"
-        searchParameters={searchParameters}
-        title="مدیریت کالکشن ها"
-      />
-      <AdminItem
-        id="m_blogs"
-        name="m_blogs"
-        handle_tab_select_admin={handle_tab_select_admin}
-        icon="badge_check"
-        searchParameters={searchParameters}
-        title="مدیریت وبلاگ ها"
-      />
-      <AdminItem
         id="add_teacher"
         name="add_teacher"
         handle_tab_select_admin={handle_tab_select_admin}
@@ -68,6 +39,38 @@ const AdminItems = ({ searchParameters, handle_tab_select_admin }: Props) => {
         icon="graduate"
         searchParameters={searchParameters}
         title="مدیریت مدرسین"
+      />
+      <AdminItem
+        id="add_collection"
+        name="add_collection"
+        handle_tab_select_admin={handle_tab_select_admin}
+        icon="add"
+        searchParameters={searchParameters}
+        title="ایجاد کالکشن"
+      />
+      <AdminItem
+        id="m_collections"
+        name="m_collections"
+        handle_tab_select_admin={handle_tab_select_admin}
+        icon="video_list"
+        searchParameters={searchParameters}
+        title="مدیریت کالکشن ها"
+      />
+      <AdminItem
+        id="add_blog"
+        name="add_blog"
+        handle_tab_select_admin={handle_tab_select_admin}
+        icon="add_image"
+        searchParameters={searchParameters}
+        title="ایجاد وبلاگ"
+      />
+      <AdminItem
+        id="m_blogs"
+        name="m_blogs"
+        handle_tab_select_admin={handle_tab_select_admin}
+        icon="badge_check"
+        searchParameters={searchParameters}
+        title="مدیریت وبلاگ ها"
       />
       <AdminItem
         id="m_users"

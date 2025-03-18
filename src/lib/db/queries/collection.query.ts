@@ -5,8 +5,7 @@ export async function addNewCollection(
   collection: collectionItems,
   inputPhotoPath = ""
 ) {
-  console.log('i am here to create a collection:', collection)
-  const creation_result = await prisma.collection.create({
+  return await prisma.collection.create({
     data: {
       Cost: collection.Cost,
       DisCount: collection.DisCount,

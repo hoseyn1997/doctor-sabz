@@ -108,6 +108,9 @@ const VideoCard = ({ video }: Props) => {
       <div className="grid grid-cols-10 items-center group relative">
         <Link href={`/v/${video.ShortId}`} className="col-span-9 Just2Rows">
           <div className="text-xs my-2">{video.Title}</div>
+          <div className="text-xs my-2">
+            FilePath: {video.Photo?.Photo.FilePath}
+          </div>
           <div className="flex items-center gap-1 text-gray-400 pr-2 mb-1">
             {video.Collection.Title}
             <div className="bg-gray-50/10 rounded-full p-1">
@@ -209,6 +212,10 @@ const VideoCard = ({ video }: Props) => {
         />
         <span className="text-gray-500 hover:text-gray-200">
           {video.Collection.Teacher?.FullName}
+          <p>
+            FilePath:
+            {video.Collection.Teacher.Photo?.Photo.FilePath}
+          </p>
         </span>
         <Icons.check className="w-3 bg-green-700 rounded-full stroke-white stroke-[4] p-0.5" />
       </div>

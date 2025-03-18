@@ -134,7 +134,7 @@ export default async function Page({ params, searchParams }: Props) {
     <div className="maxContainer:max-w-screen-container mx-auto">
       <div className="mx-auto min-h-48 md:rounded-3xl grid grid-cols-12 px-3 my-0 maxContainer:my-14 md:shadow-none maxContainer:shadow-[0px_0px_46px_0px_#86868638]">
         {menue_is_open && (
-          <div className="block md:col-span-3 lg:col-span-2 min-h-48 shadow-[1px_0px_0px_0px_#8080802b] dark:shadow-[1px_0px_0px_0px_#8080805e] py-10 pt-4 px-2 md:px-5 fixed left-0 md:relative bg-white dark:bg-dark">
+          <div className="block md:col-span-3 lg:col-span-2 min-h-48 shadow-[1px_0px_0px_0px_#8080802b] dark:shadow-[1px_0px_0px_0px_#8080805e] py-10 pt-4 px-2 md:px-5 fixed left-0 md:relative bg-white dark:bg-dark z-10">
             <ItemsHeader
               username={username}
               searchParameters={

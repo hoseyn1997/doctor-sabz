@@ -1,31 +1,72 @@
 "use client";
+import { Progress } from "@/app/components/features/progress";
 import { Icons } from "@/app/components/ui/icons/Icons";
 import CustomTextArea from "@/app/components/ui/input/custom_text_area";
 import CustomTextInput from "@/app/components/ui/input/custom_text_input";
-import { addVideoToCollection } from "@/lib/actions/collection.action";
 import { Collection } from "@prisma/client";
-import { useActionState, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   collection: Collection;
 }
 
-export type add_video_state = {
-  data: string;
-};
-
 export default function VideoUploadForm({ collection }: Props) {
-  const initialState: add_video_state = { data: "" };
-  const [state, formAction, pending] = useActionState<
-    add_video_state,
-    FormData
-  >(addVideoToCollection, initialState);
+  const [progress, setProgress] = useState(0);
+  const [uploadStatus, setUploadStatus] = useState<
+    "idle" | "uploading" | "success" | "error"
+  >("idle");
+  const [, setErrorMessage] = useState("");
+  const [error, seterror] = useState("");
 
+  const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    setProgress(0);
+    setUploadStatus("uploading");
+
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    try {
+      const xhr = new XMLHttpRequest();
+      xhr.upload.onprogress = (event) => {
+        console.log("it is on progress: ", xhr.response);
+        if (event.lengthComputable) {
+          const percentComplete = Math.round(
+            (event.loaded / event.total) * 100
+          );
+          setProgress(percentComplete);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          setUploadStatus("success");
+          setTimeout(() => setUploadStatus("idle"), 2000);
+        } else {
+          seterror(JSON.parse(xhr.response).error);
+          setUploadStatus("error");
+          setErrorMessage("Upload failed");
+        }
+      };
+
+      xhr.onerror = () => {
+        seterror(xhr.response.error);
+        setUploadStatus("error");
+        setErrorMessage("Network error");
+      };
+
+      xhr.open("POST", "/api/dash/add-video?predicate=video");
+      xhr.send(formData);
+    } catch (error) {
+      setUploadStatus("error");
+      setErrorMessage("Upload failed.");
+      seterror("مشکلی رخ داد دوباره تلاش کنید");
+    }
+  };
   return (
     <form
-      action={formAction}
+      onSubmit={handleSubmitForm}
       className="flex flex-col gap-1 my-5 p-1.5 pb-3 sm:p-5 rtl"
     >
+      <p>{collection.Id}</p>
       <div className="flex justify-start items-center gap-2 py-2">
         <Icons.add className="w-4 stroke-green-500" />
         <h1 className="text-xs font-bold py-1 text-green-500">افزودن ویدئو</h1>
@@ -54,7 +95,7 @@ export default function VideoUploadForm({ collection }: Props) {
       <CustomTextInput
         type="file"
         accept="video/*"
-        name="file"
+        name="video_file"
         icon="clapperboard"
       />
       <span className="text-[10px] font-thin">تصویر ویدئو:</span>
@@ -64,24 +105,34 @@ export default function VideoUploadForm({ collection }: Props) {
         name="photo_file"
         icon="add_image"
       />
-      {state.data && state.data[0] === "e" ? (
+      {error && (
         <>
           <span className="text-[10px] text-red-500">{"=> "}خطای سیستمی:</span>
           <p className="text-xs font-bold ring-[0.5px] ring-red-400 text-red-400 p-3 w-full text-center rounded-md">
-            {state.data.split("-")[1]}
+            {error}
           </p>
         </>
-      ) : state.data[0] === "s" ? (
-        <p className="text-xs font-bold ring-[0.5px] ring-green-400 text-green-400 p-3 w-full text-center rounded-md">
-          {state.data.split("-")[1]}
+      )}
+      {uploadStatus === "success" && (
+        <p className="text-xs font-bold ring-[0.5px] ring-teal-400 text-green-400 p-3 w-full text-center rounded-md">
+          عملیات با موفقیت انجام شد
         </p>
-      ) : null}
+      )}
+      {uploadStatus === "uploading" && (
+        <div className="space-y-2">
+          <Progress value={progress} className="h-2" />
+          <p className="text-sm text-gray-500 text-center">
+            Uploading... {progress}%
+          </p>
+        </div>
+      )}
       <button
-        disabled={pending}
         type="submit"
         className="text-xs bg-teal-500 hover:bg-teal-400 transition-all duration-200 text-white p-2 rounded-md disabled:opacity-70"
       >
-        {pending ? "Uploading..." : "Upload Video"}
+        {progress > 0 && progress < 100 && uploadStatus == "uploading"
+          ? "در حال ارسال..."
+          : "ارسال"}
       </button>
     </form>
   );
